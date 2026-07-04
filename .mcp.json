@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "tanstack-router": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/TanStack/router"]
+    },
+    "tanstack-form": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/TanStack/form"]
+    },
+    "tanstack-query": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/TanStack/query"]
+    }
+  }
+}
