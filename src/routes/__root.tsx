@@ -1,24 +1,23 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { QueryClientProvider } from '@tanstack/react-query'
-import AppTheme from '../theme/AppTheme'
 import { CssBaseline } from '@mui/material'
-import { NotificationProvider } from '../context/NotificationContext'
-import { QueryErrorBridge } from '../context/QueryErrorBridge'
-import { queryClient } from '../queryClient'
+import type { QueryClient } from '@tanstack/react-query'
+import { NotificationProvider } from '../context/NotificationProvider'
+import AppTheme from '../theme/AppTheme'
+import { SessionProvider } from '../context/SessionProvider'
 
-// eslint-disable-next-line react-refresh/only-export-components
 const RootLayout = () => (
   <AppTheme disableCustomTheme>
     <CssBaseline enableColorScheme />
-    <QueryClientProvider client={queryClient}>
-      <NotificationProvider>
-        <QueryErrorBridge />
+    <NotificationProvider>
+      <SessionProvider>
         <Outlet />
         <TanStackRouterDevtools position="bottom-right" />
-      </NotificationProvider>
-    </QueryClientProvider>
+      </SessionProvider>
+    </NotificationProvider>
   </AppTheme>
 )
 
-export const Route = createRootRoute({ component: RootLayout })
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  component: RootLayout,
+})

@@ -1,7 +1,8 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, AlertTitle, Slide, Snackbar } from '@mui/material'
 import type { AlertColor, SnackbarCloseReason, SlideProps } from '@mui/material'
+import { notificationHandlers } from '../queryClient'
 
 type NotifyOptions = {
   title?: string
@@ -74,6 +75,13 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     }),
     [enqueue],
   )
+
+  // Conecta o cache de erros do react-query (queryClient.ts) aos toasts:
+  // ele não tem acesso a este contexto, então escreve em um objeto mutável.
+  useEffect(() => {
+    notificationHandlers.notifyError = value.notifyError
+    notificationHandlers.notifyWarning = value.notifyWarning
+  }, [value])
 
   return (
     <NotificationContext.Provider value={value}>

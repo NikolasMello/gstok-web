@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { useForm } from '@tanstack/react-form'
+import { useNavigate } from '@tanstack/react-router'
+import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
@@ -14,6 +16,8 @@ import ForgotPassword from './ForgotPassword'
 import { SitemarkIcon } from './CustomIcons'
 import ColorModeSelect from '../../../theme/ColorModeSelect'
 import { signInSchema } from '../schemas/signInSchema'
+import { useLoginMutation } from '../hooks/useLoginMutation'
+import { HttpError, isApiError } from '../../../service/http'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -57,6 +61,9 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignIn() {
   const [open, setOpen] = React.useState(false)
+  const [formError, setFormError] = React.useState<string | null>(null)
+  const navigate = useNavigate()
+  const loginMutation = useLoginMutation()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -74,8 +81,17 @@ export default function SignIn() {
     validators: {
       onChange: signInSchema,
     },
-    onSubmit: ({ value }) => {
-      console.log(value)
+    onSubmit: async ({ value }) => {
+      setFormError(null)
+      try {
+        await loginMutation.mutateAsync({ nm_email: value.email, ds_senha: value.password })
+        await navigate({ to: '/admin' })
+      } catch (error) {
+        const data = error instanceof HttpError ? error.data : undefined
+        setFormError(
+          isApiError(data) ? data.mensagem : 'Não foi possível entrar. Verifique suas credenciais.',
+        )
+      }
     },
   })
 
@@ -169,6 +185,7 @@ export default function SignIn() {
             label="Lembrar de mim"
           />
           <ForgotPassword open={open} handleClose={handleClose} />
+          {formError && <Alert severity="error">{formError}</Alert>}
           <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
             {([canSubmit, isSubmitting]) => (
               <Button type="submit" fullWidth variant="contained" disabled={!canSubmit}>

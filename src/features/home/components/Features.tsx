@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import MuiChip from '@mui/material/Chip'
 import Container from '@mui/material/Container'
@@ -111,7 +110,7 @@ export function MobileLayout({
               ? ({
                   '--items-imageLight': items[selectedItemIndex].imageLight,
                   '--items-imageDark': items[selectedItemIndex].imageDark,
-                } as any)
+                } as React.CSSProperties)
               : {}
           }
         />
@@ -246,7 +245,7 @@ export default function Features() {
                   ? ({
                       '--items-imageLight': items[selectedItemIndex].imageLight,
                       '--items-imageDark': items[selectedItemIndex].imageDark,
-                    } as any)
+                    } as React.CSSProperties)
                   : {}
               }
             />

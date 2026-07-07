@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { styled } from '@mui/material/styles'
 import Divider from '@mui/material/Divider'
 import Menu from '@mui/material/Menu'
@@ -8,6 +9,7 @@ import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded'
 import MenuButton from './MenuButton'
+import { useSession } from '../../../context/SessionProvider'
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
@@ -16,11 +18,18 @@ const MenuItem = styled(MuiMenuItem)({
 export default function OptionsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+  const navigate = useNavigate()
+  const { logout } = useSession()
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const handleLogout = async () => {
+    handleClose()
+    await logout()
+    await navigate({ to: '/login' })
   }
   return (
     <React.Fragment>
@@ -43,7 +52,7 @@ export default function OptionsMenu() {
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <Divider />
         <MenuItem
-          onClick={handleClose}
+          onClick={() => void handleLogout()}
           sx={{
             [`& .${listItemIconClasses.root}`]: {
               ml: 'auto',

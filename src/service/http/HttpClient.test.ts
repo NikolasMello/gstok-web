@@ -25,7 +25,7 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({ id: 1 }))
     const client = new HttpClient(baseURL)
 
-    const { data, status } = await client.get<{ id: number }>('/users/1', { auth: false })
+    const { data, status } = await client.get<{ id: number }>('/users/1')
 
     expect(status).toBe(200)
     expect(data).toEqual({ id: 1 })
@@ -38,7 +38,7 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({ ok: true }))
     const client = new HttpClient(baseURL)
 
-    await client.post('/auth/login', { nm_email: 'a@b.com', ds_senha: '123456' }, { auth: false })
+    await client.post('/auth/login', { nm_email: 'a@b.com', ds_senha: '123456' })
 
     const [, init] = fetchMock.mock.calls[0]
     const headers = init!.headers as Headers
@@ -47,28 +47,14 @@ describe('HttpClient', () => {
     expect(headers.get('Content-Type')).toBe('application/json')
   })
 
-  it('attaches an Authorization header when a token is set and auth is not disabled', async () => {
+  it('always includes credentials so the httpOnly session cookie is sent', async () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({}))
     const client = new HttpClient(baseURL)
-    client.setToken('abc123')
 
     await client.get('/me')
 
     const [, init] = fetchMock.mock.calls[0]
-    const headers = init!.headers as Headers
-    expect(headers.get('Authorization')).toBe('Bearer abc123')
-  })
-
-  it('does not attach Authorization when auth: false', async () => {
-    fetchMock.mockResolvedValueOnce(jsonResponse({}))
-    const client = new HttpClient(baseURL)
-    client.setToken('abc123')
-
-    await client.get('/public', { auth: false })
-
-    const [, init] = fetchMock.mock.calls[0]
-    const headers = init!.headers as Headers
-    expect(headers.get('Authorization')).toBeNull()
+    expect(init!.credentials).toBe('include')
   })
 
   it('appends query params to the URL, skipping undefined values', async () => {
@@ -76,7 +62,6 @@ describe('HttpClient', () => {
     const client = new HttpClient(baseURL)
 
     await client.get('/users', {
-      auth: false,
       params: { page: 2, active: true, skip: undefined },
     })
 
@@ -88,7 +73,7 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({ message: 'Invalid credentials' }, 400))
     const client = new HttpClient(baseURL)
 
-    await expect(client.post('/auth/login', {}, { auth: false })).rejects.toMatchObject({
+    await expect(client.post('/auth/login', {})).rejects.toMatchObject({
       status: 400,
       data: { message: 'Invalid credentials' },
     })
@@ -98,41 +83,16 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }))
     const client = new HttpClient(baseURL)
 
-    const { data } = await client.delete('/users/1', { auth: false })
+    const { data } = await client.delete('/users/1')
 
     expect(data).toBeUndefined()
   })
 
-  it('refreshes the token on 401, retries once, and succeeds', async () => {
-    fetchMock
-      .mockResolvedValueOnce(new Response(null, { status: 401 }))
-      .mockResolvedValueOnce(jsonResponse({ id: 1 }))
-
-    const client = new HttpClient(baseURL)
-    client.setToken('expired-token')
-    client.setRefreshTokenHandler(vi.fn().mockResolvedValue('new-token'))
-
-    const { data } = await client.get<{ id: number }>('/me')
-
-    expect(data).toEqual({ id: 1 })
-    expect(client.getToken()).toBe('new-token')
-    expect(fetchMock).toHaveBeenCalledTimes(2)
-    const secondCallInit = fetchMock.mock.calls[1][1]
-    const secondCallHeaders = secondCallInit!.headers as Headers
-    expect(secondCallHeaders.get('Authorization')).toBe('Bearer new-token')
-  })
-
-  it('clears the token and rejects pending requests when refresh fails', async () => {
+  it('rejects with HttpError on a 401 response, without retrying', async () => {
     fetchMock.mockResolvedValueOnce(new Response(null, { status: 401 }))
     const client = new HttpClient(baseURL)
-    client.setToken('expired-token')
-    const refreshError = new Error('refresh failed')
-    client.setRefreshTokenHandler(vi.fn().mockRejectedValue(refreshError))
-    const onRefreshFailure = vi.fn()
-    client.setOnRefreshFailure(onRefreshFailure)
 
-    await expect(client.get('/me')).rejects.toBe(refreshError)
-    expect(client.getToken()).toBeNull()
-    expect(onRefreshFailure).toHaveBeenCalledWith(refreshError)
+    await expect(client.get('/me')).rejects.toMatchObject({ status: 401 })
+    expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 })

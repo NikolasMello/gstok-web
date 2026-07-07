@@ -1,10 +1,12 @@
 import {StrictMode} from "react";
 import ReactDOM from "react-dom/client";
 import {RouterProvider, createRouter} from "@tanstack/react-router";
+import {QueryClientProvider} from "@tanstack/react-query";
 
 // Import the generated route tree
 import {routeTree} from "./routeTree.gen";
 import {StyledEngineProvider} from "@mui/material";
+import {queryClient} from "./queryClient";
 
 import '@fontsource/nunito/400.css'
 import '@fontsource/nunito/500.css'
@@ -16,7 +18,7 @@ import '@fontsource/poppins/700.css'
 import '@fontsource/poppins/800.css'
 
 // Create a new router instance
-const router = createRouter({routeTree});
+const router = createRouter({routeTree, context: {queryClient}});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -32,7 +34,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <StyledEngineProvider injectFirst>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </StyledEngineProvider>
     </StrictMode>,
   );
