@@ -36,7 +36,7 @@ Routing uses **TanStack Router** with file-based routes under [src/routes/](src/
 
 ### Conventions to be aware of
 
-- Path aliases are not configured — imports use relative paths (`../../theme/AppTheme`).
+- The `@/` path alias (configured in [vite.config.ts](vite.config.ts) and [tsconfig.app.json](tsconfig.app.json)) points to `src/`. See [README.md](README.md#import-conventions) for the import grouping/ordering convention (React/external → MUI → `@/` internal → relative-local); usage across the codebase is still inconsistent with older files using deep relative paths (`../../theme/AppTheme`).
 - Formatting is enforced by Prettier with no semicolons, single quotes, trailing commas ([.prettierrc](.prettierrc)); however code style is inconsistent across files (some use `import {X} from` without spaces and semicolons — remnants of the original MUI template vs. newer app code). Match the surrounding file's style rather than the global default when in doubt.
 - Admin routes/UI text are in Portuguese (`clientes`, `produtos`, `pedidos`, `usuarios`, `configuracoes`); keep new admin-facing strings in Portuguese for consistency.
 - API base URL comes from `VITE_API_URL` (see [.env.development](.env.development)); no HTTP client/data-fetching layer exists yet.

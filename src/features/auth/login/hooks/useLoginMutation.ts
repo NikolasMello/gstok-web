@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { login } from '@/service/auth/AuthService'
+
 import { sessionQueryKey } from '@/context/SessionProvider'
+import { login } from '@/service/auth/AuthService'
 
 export function useLoginMutation() {
   const queryClient = useQueryClient()

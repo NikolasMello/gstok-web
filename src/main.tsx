@@ -1,12 +1,14 @@
 import {StrictMode} from "react";
 import ReactDOM from "react-dom/client";
-import {RouterProvider, createRouter} from "@tanstack/react-router";
-import {QueryClientProvider} from "@tanstack/react-query";
 
+import {QueryClientProvider} from "@tanstack/react-query";
+import {createRouter,RouterProvider} from "@tanstack/react-router";
+
+import {StyledEngineProvider} from "@mui/material";
+
+import {queryClient} from "./queryClient";
 // Import the generated route tree
 import {routeTree} from "./routeTree.gen";
-import {StyledEngineProvider} from "@mui/material";
-import {queryClient} from "./queryClient";
 
 import '@fontsource/nunito/400.css'
 import '@fontsource/nunito/500.css'

@@ -1,5 +1,5 @@
+import { grey,pink } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
-import { pink, grey } from '@mui/material/colors'
 
 // Fontes — instale via npm (recomendado, evita FOUC e depender de CDN externo):
 // npm install @fontsource/nunito @fontsource/poppins

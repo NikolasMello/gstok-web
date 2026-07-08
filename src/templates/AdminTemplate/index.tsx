@@ -1,10 +1,12 @@
+import { Outlet } from '@tanstack/react-router'
+
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
+import { alpha } from '@mui/material/styles'
+
 import AppNavbar from './components/AppNavbar'
 import Header from './components/Header'
 import SideMenu from './components/SideMenu'
-import { alpha } from '@mui/material/styles'
-import { Outlet } from '@tanstack/react-router'
 
 const AdminTemplate = () => {
   return (

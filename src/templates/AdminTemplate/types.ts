@@ -1,4 +1,4 @@
-import { MuiSvgIcon } from '../../types/MuiSvgIcon'
+import type { MuiSvgIcon } from '../../types/MuiSvgIcon'
 
 export type NavItem = {
   text: string

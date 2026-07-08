@@ -1,13 +1,14 @@
 import js from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import pluginRouter from '@tanstack/eslint-plugin-router'
+import { defineConfig } from 'eslint/config'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import eslintConfigPrettier from 'eslint-config-prettier'
-import pluginRouter from '@tanstack/eslint-plugin-router'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import globals from 'globals'
-import { defineConfig } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 
 export default defineConfig({
   ignores: ['dist', 'node_modules', 'coverage'],
@@ -30,6 +31,7 @@ export default defineConfig({
   },
   plugins: {
     'react-refresh': reactRefresh,
+    'simple-import-sort': simpleImportSort,
   },
   settings: {
     react: { version: 'detect' },
@@ -40,6 +42,23 @@ export default defineConfig({
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/consistent-type-imports': 'warn',
+    // No class components in this codebase; this rule mostly false-positives on hook APIs
+    // (useForm, useQuery, etc.) that bind their methods in the constructor but declare them
+    // with method syntax in their .d.ts (e.g. tanstack-form's handleSubmit).
+    '@typescript-eslint/unbound-method': 'off',
+    'simple-import-sort/imports': [
+      'warn',
+      {
+        groups: [
+          ['^react$', '^react-dom'],
+          ['^(?!@mui)@?\\w'],
+          ['^@mui'],
+          ['^@/'],
+          ['^\\.'],
+        ],
+      },
+    ],
+    'simple-import-sort/exports': 'warn',
     '@typescript-eslint/only-throw-error': [
       'error',
       {

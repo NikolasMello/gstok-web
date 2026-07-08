@@ -1,15 +1,18 @@
 import * as React from 'react'
+
 import { useNavigate } from '@tanstack/react-router'
-import { styled } from '@mui/material/styles'
-import Divider from '@mui/material/Divider'
-import Menu from '@mui/material/Menu'
-import MuiMenuItem from '@mui/material/MenuItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon'
+
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded'
-import MenuButton from './MenuButton'
+import Divider from '@mui/material/Divider'
+import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Menu from '@mui/material/Menu'
+import MuiMenuItem from '@mui/material/MenuItem'
+import { styled } from '@mui/material/styles'
+
 import { useSession } from '../../../context/SessionProvider'
+import MenuButton from './MenuButton'
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',

@@ -1,8 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+
 import { useNavigate } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
+
+import type { AlertColor, SlideProps,SnackbarCloseReason } from '@mui/material'
 import { Alert, AlertTitle, Slide, Snackbar } from '@mui/material'
-import type { AlertColor, SnackbarCloseReason, SlideProps } from '@mui/material'
+
 import { notificationHandlers, sessionHandlers } from '../queryClient'
 
 type NotifyOptions = {

@@ -1,9 +1,12 @@
 import { useCallback } from 'react'
+
 import { useLocation } from '@tanstack/react-router'
+
+import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
+import Breadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Breadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs'
-import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
+
 import { navBreadcrumbs } from '../navRoutes'
 
 const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({

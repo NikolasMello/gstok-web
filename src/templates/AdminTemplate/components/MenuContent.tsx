@@ -1,11 +1,13 @@
+import { Link, useLocation } from '@tanstack/react-router'
+
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import Stack from '@mui/material/Stack'
 import ListSubheader from '@mui/material/ListSubheader'
-import { Link, useLocation } from '@tanstack/react-router'
+import Stack from '@mui/material/Stack'
+
 import { navGroups } from '../navRoutes'
 export default function MenuContent() {
   const location = useLocation()

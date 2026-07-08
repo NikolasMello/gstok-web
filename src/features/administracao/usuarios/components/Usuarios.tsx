@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
-import type { GridColDef, GridPaginationModel } from '@mui/x-data-grid'
+
+import AddIcon from '@mui/icons-material/Add'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
-import AddIcon from '@mui/icons-material/Add'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import type { GridColDef, GridPaginationModel } from '@mui/x-data-grid'
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
+
 import PageLayout from '../../../../components/layout/PageLayout'
-import { useUsuariosQuery } from '../hooks/useUsuariosQuery'
 import type { UsuarioResponseDto } from '../../../../service/usuario/ResponseDTOs'
+import { useUsuariosQuery } from '../hooks/useUsuariosQuery'
 
 const DEFAULT_PAGE_SIZE = 10
 

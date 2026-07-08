@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, afterEach } from 'vitest'
-import { login, register } from './AuthService'
+import { afterEach,describe, expect, it, vi } from 'vitest'
+
 import { httpClient } from '../http'
+import { login, register } from './AuthService'
 
 describe('AuthService', () => {
   afterEach(() => {

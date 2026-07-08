@@ -1,9 +1,11 @@
 import { createContext, useCallback, useContext } from 'react'
-import type { ReactNode } from 'react'
+
 import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getMe } from '../service/usuario/UsuarioService'
-import type { UsuarioMeResponseDto } from '../service/usuario/ResponseDTOs'
+import type { ReactNode } from 'react'
+
 import { logout as logoutRequest } from '../service/auth/AuthService'
+import type { UsuarioMeResponseDto } from '../service/usuario/ResponseDTOs'
+import { getMe } from '../service/usuario/UsuarioService'
 
 /**
  * Compartilhado com os guards de rota (beforeLoad) via context.queryClient,

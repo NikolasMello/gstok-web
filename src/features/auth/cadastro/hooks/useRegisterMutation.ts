@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+
 import { register } from '@/service/auth/AuthService'
 
 export function useRegisterMutation() {

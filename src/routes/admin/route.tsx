@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
+
+import { SessionProvider,sessionQueryOptions } from '../../context/SessionProvider'
 import AdminTemplate from '../../templates/AdminTemplate'
-import { sessionQueryOptions, SessionProvider } from '../../context/SessionProvider'
 
 export const Route = createFileRoute('/admin')({
   beforeLoad: async ({ context }) => {
