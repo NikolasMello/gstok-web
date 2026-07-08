@@ -1,9 +1,13 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-const PageLayout = ({ children }: PropsWithChildren) => {
+type PageLayoutProps = PropsWithChildren<{
+  title: string
+  action?: ReactNode
+}>
+
+const PageLayout = ({ title, action, children }: PageLayoutProps) => {
   return (
     <Stack
       spacing={3}
@@ -13,11 +17,11 @@ const PageLayout = ({ children }: PropsWithChildren) => {
         maxWidth: t.breakpoints.values.xl,
       })}
     >
-      <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-        <Typography component="h1" variant="h4">
-          Titulo
+      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography component="h1" variant="h5">
+          {title}
         </Typography>
-        <Button variant="contained">Teste</Button>
+        {action}
       </Stack>
       {children}
     </Stack>

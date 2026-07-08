@@ -8,3 +8,11 @@ export interface HttpResponse<T> {
   status: number
   headers: Headers
 }
+
+export interface PagedResult<T> {
+  items: T[]
+  page: number
+  page_size: number
+  total_count: number
+  total_pages: number
+}

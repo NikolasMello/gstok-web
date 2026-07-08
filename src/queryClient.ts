@@ -13,8 +13,25 @@ export const notificationHandlers: { notifyError: NotifyFn; notifyWarning: Notif
   notifyWarning: () => {},
 }
 
+/**
+ * Mesma ideia do notificationHandlers acima: preenchido em runtime por quem
+ * tem acesso ao router (NotificationProvider), já que o QueryClient existe
+ * fora da árvore React e não pode chamar useNavigate diretamente.
+ */
+export const sessionHandlers: { redirectToLogin: () => void } = {
+  redirectToLogin: () => {},
+}
+
 function handleQueryError(error: unknown, meta: Record<string, unknown> | undefined) {
   if (meta?.silent) return
+
+  // Sessão expirada/inválida em qualquer request da app: manda pro login em vez
+  // de deixar a tela atual "viva" com uma sessão morta.
+  if (error instanceof HttpError && error.status === 401) {
+    sessionHandlers.redirectToLogin()
+    return
+  }
+
   const data = error instanceof HttpError ? error.data : undefined
   if (!isApiError(data)) return
   if (data.severidade === 'Erro') notificationHandlers.notifyError(data.mensagem)

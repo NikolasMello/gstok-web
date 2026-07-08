@@ -5,25 +5,31 @@ export class HttpClient {
   constructor(private readonly baseURL: string) {}
 
   get<T>(path: string, config?: HttpRequestConfig) {
-    return this.request<T>(path, { ...config, method: 'GET' })
+    return this.request<T>(path, { ...config, method: 'GET' }).then((response) => response.data)
   }
 
   post<T>(path: string, body?: unknown, config?: HttpRequestConfig) {
-    return this.request<T>(path, { ...config, method: 'POST', body })
+    return this.request<T>(path, { ...config, method: 'POST', body }).then((response) => response.data)
   }
 
   put<T>(path: string, body?: unknown, config?: HttpRequestConfig) {
-    return this.request<T>(path, { ...config, method: 'PUT', body })
+    return this.request<T>(path, { ...config, method: 'PUT', body }).then((response) => response.data)
   }
 
   patch<T>(path: string, body?: unknown, config?: HttpRequestConfig) {
-    return this.request<T>(path, { ...config, method: 'PATCH', body })
+    return this.request<T>(path, { ...config, method: 'PATCH', body }).then((response) => response.data)
   }
 
-  delete<T>(path: string, config?: HttpRequestConfig) {
-    return this.request<T>(path, { ...config, method: 'DELETE' })
+  delete<T>(path: string, body?: unknown, config?: HttpRequestConfig) {
+    return this.request<T>(path, { ...config, method: 'DELETE', body }).then((response) => response.data)
   }
 
+  /**
+   * Envelope completo (status/headers) fica isolado aqui — os verbos públicos acima só expõem `data`.
+   * Se algum call site futuro precisar de status/headers de uma resposta com sucesso, adicione um
+   * método dedicado (ex.: `getWithMeta`) chamando `request()` sem o `.then(unwrap)`, em vez de mudar
+   * o contrato dos verbos existentes.
+   */
   private async request<T>(
     path: string,
     config: HttpRequestConfig & { method: string; body?: unknown },

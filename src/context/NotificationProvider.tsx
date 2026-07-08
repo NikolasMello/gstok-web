@@ -1,8 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { Alert, AlertTitle, Slide, Snackbar } from '@mui/material'
 import type { AlertColor, SnackbarCloseReason, SlideProps } from '@mui/material'
-import { notificationHandlers } from '../queryClient'
+import { notificationHandlers, sessionHandlers } from '../queryClient'
 
 type NotifyOptions = {
   title?: string
@@ -33,6 +34,7 @@ function SlideUpTransition(props: SlideProps) {
 }
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate()
   const [queue, setQueue] = useState<QueuedNotification[]>([])
   const [open, setOpen] = useState(false)
   const current = queue[0] ?? null
@@ -82,6 +84,14 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     notificationHandlers.notifyError = value.notifyError
     notificationHandlers.notifyWarning = value.notifyWarning
   }, [value])
+
+  // Mesma ponte, agora para o redirect de sessão expirada (qualquer 401 global,
+  // ver queryClient.ts): o QueryClient não tem acesso ao router.
+  useEffect(() => {
+    sessionHandlers.redirectToLogin = () => {
+      void navigate({ to: '/login', replace: true })
+    }
+  }, [navigate])
 
   return (
     <NotificationContext.Provider value={value}>

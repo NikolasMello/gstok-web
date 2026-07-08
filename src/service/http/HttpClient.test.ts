@@ -25,9 +25,8 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({ id: 1 }))
     const client = new HttpClient(baseURL)
 
-    const { data, status } = await client.get<{ id: number }>('/users/1')
+    const data = await client.get<{ id: number }>('/users/1')
 
-    expect(status).toBe(200)
     expect(data).toEqual({ id: 1 })
     const [url, init] = fetchMock.mock.calls[0]
     expect(url).toBe(`${baseURL}/users/1`)
@@ -83,7 +82,7 @@ describe('HttpClient', () => {
     fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }))
     const client = new HttpClient(baseURL)
 
-    const { data } = await client.delete('/users/1')
+    const data = await client.delete('/users/1')
 
     expect(data).toBeUndefined()
   })

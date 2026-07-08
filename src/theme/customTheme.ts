@@ -48,6 +48,9 @@ export const customTheme = createTheme({
           secondary: '#6B6470',
         },
         divider: pink[50],
+        TableCell: {
+          border: pink[50],
+        },
       },
     },
     dark: {
@@ -75,6 +78,9 @@ export const customTheme = createTheme({
           secondary: '#B8AEB5',
         },
         divider: '#322A30',
+        TableCell: {
+          border: '#322A30',
+        },
       },
     },
   },

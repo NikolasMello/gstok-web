@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import PageLayout from '../../components/layout/PageLayout'
-import { Box } from '@mui/material'
+import Usuarios from '../../features/administracao/usuarios/components/Usuarios'
 
 export const Route = createFileRoute('/admin/usuarios')({
-  component: RouteComponent,
+  component: Usuarios,
 })
-
-function RouteComponent() {
-  return <PageLayout><Box>Rota usuários</Box></PageLayout>
-}

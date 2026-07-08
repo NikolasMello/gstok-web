@@ -7,6 +7,7 @@ export interface LoginRequestDto {
 
 export interface RegisterRequestDto {
   nm_email: string
+  nm_pessoa: string
   ds_senha: string
 }
 
