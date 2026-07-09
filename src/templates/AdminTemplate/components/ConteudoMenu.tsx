@@ -1,4 +1,4 @@
-import { Link, useLocation } from '@tanstack/react-router'
+import { Link, useMatchRoute } from '@tanstack/react-router'
 
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -9,9 +9,9 @@ import ListSubheader from '@mui/material/ListSubheader'
 import Stack from '@mui/material/Stack'
 
 import { navGroups } from '../navRoutes'
+
 export default function ConteudoMenu() {
-  const location = useLocation()
-  const isActive = (pathName: string, route: string) => route.startsWith(pathName)
+  const matchRoute = useMatchRoute()
 
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
@@ -20,9 +20,9 @@ export default function ConteudoMenu() {
           {group.items.map(({ text, Icon, route }) => (
             <ListItem key={route} disablePadding sx={{ display: 'block', color: 'inherit' }}>
               <ListItemButton
-                selected={isActive(location.pathname, route)}
+                selected={Boolean(matchRoute({ to: route, fuzzy: true }))}
                 component={Link}
-                href={route}
+                to={route}
               >
                 <ListItemIcon>
                   <Icon />

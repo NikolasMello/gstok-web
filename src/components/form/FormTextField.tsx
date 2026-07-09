@@ -2,11 +2,11 @@ import type { AnyFieldApi } from '@tanstack/react-form'
 
 import TextField, { type TextFieldProps } from '@mui/material/TextField'
 
-type CampoTextoProps = {
+type FormTextFieldProps = {
   field: AnyFieldApi
 } & Omit<TextFieldProps, 'error' | 'helperText' | 'id' | 'name' | 'value' | 'onBlur' | 'onChange'>
 
-export default function CampoTexto({ field, ...textFieldProps }: CampoTextoProps) {
+export default function FormTextField({ field, ...textFieldProps }: FormTextFieldProps) {
   const name = field.name as string
   const value = field.state.value as string
   const errors = field.state.meta.errors as Array<{ message?: string } | undefined>

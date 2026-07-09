@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { Link as RouterLink } from '@tanstack/react-router'
+
 import AddIcon from '@mui/icons-material/Add'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -57,7 +59,7 @@ export default function Usuarios() {
     <LayoutPagina
       title="Usuários"
       action={
-        <Button variant="contained" startIcon={<AddIcon />}>
+        <Button component={RouterLink} to="/admin/usuarios/novo" variant="contained" startIcon={<AddIcon />}>
           Novo usuário
         </Button>
       }

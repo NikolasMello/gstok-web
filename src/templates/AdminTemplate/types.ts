@@ -1,9 +1,10 @@
+import type { FileRouteTypes } from '../../routeTree.gen'
 import type { MuiSvgIcon } from '../../types/MuiSvgIcon'
 
 export type NavItem = {
   text: string
   Icon: MuiSvgIcon
-  route: string
+  route: FileRouteTypes['to']
 }
 
 export type NavGroup = {

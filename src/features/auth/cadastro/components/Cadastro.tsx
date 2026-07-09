@@ -7,7 +7,7 @@ import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
-import CampoTexto from '../../../../components/form/CampoTexto'
+import FormTextField from '../../../../components/form/FormTextField'
 import { CartaoAutenticacao, ContainerAutenticacao } from '../../../../components/ui/CartaoAutenticacao'
 import { IconeMarca } from '../../../../components/ui/IconesPersonalizados'
 import { HttpError, isApiError } from '../../../../service/http'
@@ -71,7 +71,7 @@ export default function Cadastro() {
         >
           <form.Field name="nome">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="Nome"
                 type="text"
@@ -86,7 +86,7 @@ export default function Cadastro() {
 
           <form.Field name="email">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="E-mail"
                 type="email"
@@ -101,7 +101,7 @@ export default function Cadastro() {
 
           <form.Field name="password">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="Senha"
                 placeholder="••••••••"
@@ -116,7 +116,7 @@ export default function Cadastro() {
 
           <form.Field name="confirmPassword">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="Confirmar senha"
                 placeholder="••••••••"
@@ -130,7 +130,7 @@ export default function Cadastro() {
           </form.Field>
 
           {formError && <Alert severity="error">{formError}</Alert>}
-          <form.Subscribe selector={(state) => state.canSubmit}>
+          <form.Subscribe selector={(state) => state.canSubmit && !state.isPristine}>
             {(canSubmit) => (
               <Button
                 type="submit"

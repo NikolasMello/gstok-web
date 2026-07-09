@@ -26,9 +26,11 @@
     "@tanstack/react-query": "^5.101.2",
     "@tanstack/react-router": "^1.170.16",
     "@tanstack/react-router-devtools": "^1.167.0",
+    "brazilian-values": "^0.13.1",
     "dayjs": "^1.11.21",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-imask": "^7.6.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {

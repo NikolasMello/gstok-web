@@ -11,7 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
-import CampoTexto from '@/components/form/CampoTexto'
+import FormTextField from '@/components/form/FormTextField'
 import { CartaoAutenticacao, ContainerAutenticacao } from '@/components/ui/CartaoAutenticacao'
 import { IconeMarca } from '@/components/ui/IconesPersonalizados'
 import { HttpError, isApiError } from '@/service/http'
@@ -82,7 +82,7 @@ export default function Login() {
         >
           <Field name="email">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="E-mail"
                 type="email"
@@ -97,7 +97,7 @@ export default function Login() {
 
           <Field name="password">
             {(field) => (
-              <CampoTexto
+              <FormTextField
                 field={field}
                 label="Senha"
                 placeholder="••••••"
@@ -116,7 +116,7 @@ export default function Login() {
           />
           <EsqueciSenha open={open} handleClose={handleClose} />
           {formError && <Alert severity="error">{formError}</Alert>}
-          <Subscribe selector={(state) => state.canSubmit}>
+          <Subscribe selector={(state) => state.canSubmit && !state.isPristine}>
             {(canSubmit) => (
               <Button
                 type="submit"
