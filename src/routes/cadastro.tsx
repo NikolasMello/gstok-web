@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { sessionQueryOptions } from '../context/SessionProvider'
-import SignUp from '../features/auth/cadastro/components/SignUp'
+import { sessionQueryOptions } from '../context/SessaoProvider'
+import Cadastro from '../features/auth/cadastro/components/Cadastro'
 
 export const Route = createFileRoute('/cadastro')({
   beforeLoad: async ({ context }) => {
@@ -10,5 +10,5 @@ export const Route = createFileRoute('/cadastro')({
       throw redirect({ to: '/admin/usuarios' })
     }
   },
-  component: SignUp,
+  component: Cadastro,
 })

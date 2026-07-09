@@ -32,7 +32,7 @@ Routing uses **TanStack Router** with file-based routes under [src/routes/](src/
 - [src/features/](src/features/) — page-level feature UIs (e.g. `home`, `login`), each with its own `components/` folder. Routes import from here.
 - [src/templates/AdminTemplate/](src/templates/AdminTemplate/) — the admin dashboard shell (side menu, app bar, header, breadcrumbs, etc.), mirrored from MUI's dashboard template.
 - [src/theme/](src/theme/) — MUI theme setup: `AppTheme.tsx` builds the theme from `themePrimitives.ts` and per-area `customizations/*` (dataDisplay, feedback, inputs, navigation, surfaces), plus `customTheme.ts` and color-mode selection components.
-- [src/components/layout/PageLayout.tsx](src/components/layout/PageLayout.tsx) — shared page wrapper (title + action button + content slot) intended for use inside admin pages; note most `admin/*.tsx` routes are still stub placeholders (`<div>Hello "..."!</div>`) that haven't adopted it yet.
+- [src/components/layout/LayoutPagina.tsx](src/components/layout/LayoutPagina.tsx) — shared page wrapper (title + action button + content slot) intended for use inside admin pages; note most `admin/*.tsx` routes are still stub placeholders (`<div>Hello "..."!</div>`) that haven't adopted it yet.
 
 ### Conventions to be aware of
 

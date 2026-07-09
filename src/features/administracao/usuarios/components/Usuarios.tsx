@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip'
 import type { GridColDef, GridPaginationModel } from '@mui/x-data-grid'
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
 
-import PageLayout from '../../../../components/layout/PageLayout'
+import LayoutPagina from '../../../../components/layout/LayoutPagina'
 import type { UsuarioResponseDto } from '../../../../service/usuario/ResponseDTOs'
 import { useUsuariosQuery } from '../hooks/useUsuariosQuery'
 
@@ -54,7 +54,7 @@ export default function Usuarios() {
   const { data, isFetching } = useUsuariosQuery(paginationModel.page, paginationModel.pageSize)
 
   return (
-    <PageLayout
+    <LayoutPagina
       title="Usuários"
       action={
         <Button variant="contained" startIcon={<AddIcon />}>
@@ -76,6 +76,6 @@ export default function Usuarios() {
         density="comfortable"
         sx={{ border: 'none' }}
       />
-    </PageLayout>
+    </LayoutPagina>
   )
 }

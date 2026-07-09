@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { sessionQueryOptions } from '../context/SessionProvider'
-import SignIn from '../features/auth/login/components/SignIn'
+import { sessionQueryOptions } from '../context/SessaoProvider'
+import Login from '../features/auth/login/components/Login'
 
 export const Route = createFileRoute('/login')({
   beforeLoad: async ({ context }) => {
@@ -10,5 +10,5 @@ export const Route = createFileRoute('/login')({
       throw redirect({ to: '/admin/usuarios' })
     }
   },
-  component: SignIn,
+  component: Login,
 })

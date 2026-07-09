@@ -4,16 +4,16 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 import { CssBaseline } from '@mui/material'
 
-import { NotificationProvider } from '../context/NotificationProvider'
+import { NotificacaoProvider } from '../context/NotificacaoProvider'
 import AppTheme from '../theme/AppTheme'
 
 const RootLayout = () => (
   <AppTheme>
     <CssBaseline enableColorScheme />
-    <NotificationProvider>
+    <NotificacaoProvider>
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-    </NotificationProvider>
+    </NotificacaoProvider>
   </AppTheme>
 )
 

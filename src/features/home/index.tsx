@@ -1,34 +1,34 @@
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 
-import AppAppBar from './components/AppAppBar'
-import FAQ from './components/FAQ'
-import Features from './components/Features'
-import Footer from './components/Footer'
-import Hero from './components/Hero'
-import Highlights from './components/Highlights'
-import LogoCollection from './components/LogoCollection'
-import Pricing from './components/Pricing'
-import Testimonials from './components/Testimonials'
+import BarraNavegacao from './components/BarraNavegacao'
+import ColecaoLogos from './components/ColecaoLogos'
+import Depoimentos from './components/Depoimentos'
+import Destaques from './components/Destaques'
+import Funcionalidades from './components/Funcionalidades'
+import PerguntasFrequentes from './components/PerguntasFrequentes'
+import Precos from './components/Precos'
+import Rodape from './components/Rodape'
+import SecaoPrincipal from './components/SecaoPrincipal'
 
 export default function Home() {
   return (
     <>
-      <AppAppBar />
-      <Hero />
+      <BarraNavegacao />
+      <SecaoPrincipal />
       <Box>
-        <LogoCollection />
-        <Features />
+        <ColecaoLogos />
+        <Funcionalidades />
         <Divider />
-        <Testimonials />
+        <Depoimentos />
         <Divider />
-        <Highlights />
+        <Destaques />
         <Divider />
-        <Pricing />
+        <Precos />
         <Divider />
-        <FAQ />
+        <PerguntasFrequentes />
         <Divider />
-        <Footer />
+        <Rodape />
       </Box>
     </>
   )

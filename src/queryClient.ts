@@ -7,7 +7,7 @@ type NotifyFn = (message: string) => void
 /**
  * O QueryClient precisa existir fora da árvore React (para ser injetado no
  * context do router antes do primeiro render), mas o toast de erro depende
- * do NotificationProvider. Ele preenche estas funções em runtime.
+ * do NotificacaoProvider. Ele preenche estas funções em runtime.
  */
 export const notificationHandlers: { notifyError: NotifyFn; notifyWarning: NotifyFn } = {
   notifyError: () => {},
@@ -16,7 +16,7 @@ export const notificationHandlers: { notifyError: NotifyFn; notifyWarning: Notif
 
 /**
  * Mesma ideia do notificationHandlers acima: preenchido em runtime por quem
- * tem acesso ao router (NotificationProvider), já que o QueryClient existe
+ * tem acesso ao router (NotificacaoProvider), já que o QueryClient existe
  * fora da árvore React e não pode chamar useNavigate diretamente.
  */
 export const sessionHandlers: { redirectToLogin: () => void } = {

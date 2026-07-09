@@ -12,7 +12,7 @@ export interface PessoaResponseDto {
   nm_pessoa: string
   nm_sobrenome: string
   nm_telefone: string
-  nm_email: string
+  nm_email_contato: string
 }
 
 export type PessoaPagedResponseDto = PagedResult<PessoaResponseDto>

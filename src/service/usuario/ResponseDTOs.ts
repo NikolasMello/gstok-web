@@ -1,6 +1,6 @@
 import type { PagedResult } from '../http'
 
-export interface UsuarioMeResponseDto {
+export interface UsuarioSessaoResponseDto {
   nm_email: string
   nm_pessoa?: string
   nm_sobrenome?: string
