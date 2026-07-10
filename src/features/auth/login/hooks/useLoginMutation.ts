@@ -12,7 +12,7 @@ export function useLoginMutation() {
     mutationFn: login,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: sessionQueryKey })
-      await navigate({ to: '/admin' })
+      await navigate({ to: '/admin/estoque' })
     },
     meta: { silent: true }, 
   })

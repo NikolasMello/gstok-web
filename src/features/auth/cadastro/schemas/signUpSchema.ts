@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { emailSchema } from '@/validators/email'
+import { senhaSchema } from '@/validators/senha'
 
 export const signUpSchema = z
   .object({
@@ -9,7 +10,7 @@ export const signUpSchema = z
       .min(1, { error: 'Informe seu nome.' })
       .max(100, { error: 'O nome deve ter no máximo 100 caracteres.' }),
     email: emailSchema,
-    password: z.string().min(8, { error: 'A senha deve ter pelo menos 8 caracteres.' }),
+    password: senhaSchema,
     confirmPassword: z.string().min(1, { error: 'Confirme sua senha.' }),
   })
   .refine((data) => data.password === data.confirmPassword, {

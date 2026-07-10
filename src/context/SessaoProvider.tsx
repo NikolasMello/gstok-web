@@ -1,6 +1,7 @@
-import { createContext, useCallback, useContext } from 'react'
+import { createContext, useCallback, useContext, useMemo } from 'react'
 
-import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryOptions, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import { logout as logoutRequest } from '../service/auth/AuthService'
@@ -8,7 +9,7 @@ import type { UsuarioSessaoResponseDto } from '../service/usuario/ResponseDTOs'
 import { obterUsuarioSessao } from '../service/usuario/UsuarioService'
 
 /**
- * Compartilhado com os guards de rota (beforeLoad) via context.queryClient,
+ * Compartilhado com os guards de rota (loader do /admin) via context.queryClient,
  * garantindo que ambos leiam/escrevam a mesma entrada do cache do react-query.
  */
 export const sessionQueryOptions = queryOptions({
@@ -20,34 +21,29 @@ export const sessionQueryOptions = queryOptions({
 export const sessionQueryKey = sessionQueryOptions.queryKey
 
 type SessionContextValue = {
-  user: UsuarioSessaoResponseDto | undefined
-  isAuthenticated: boolean
-  /** true só na primeira carga (sem dado em cache ainda) — use pra gatear UI que depende da sessão. */
-  isLoading: boolean
-  /** true em qualquer busca em andamento, incluindo revalidações em background. */
-  isFetching: boolean
+  usuario: UsuarioSessaoResponseDto
   logout: () => Promise<void>
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
 
-export function SessaoProvider({ children }: { children: ReactNode }) {
-  const query = useQuery(sessionQueryOptions)
+type SessaoProviderProps = {
+  /** Resolvido no loader da rota /admin antes do render — nunca undefined aqui. */
+  usuario: UsuarioSessaoResponseDto
+  children: ReactNode
+}
+
+export function SessaoProvider({ usuario, children }: SessaoProviderProps) {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const logout = useCallback(async () => {
     await logoutRequest()
-    queryClient.setQueryData(sessionQueryKey, undefined)
-  }, [queryClient])
+    queryClient.removeQueries({ queryKey: sessionQueryKey })
+    await navigate({ to: '/login', replace: true })
+  }, [navigate, queryClient])
 
-  const value: SessionContextValue = {
-    user: query.data,
-    // Sem useEffect: a própria query já basta — com dado, sessão ativa; sem dado (401), inativa.
-    isAuthenticated: Boolean(query.data),
-    isLoading: query.isLoading,
-    isFetching: query.isFetching,
-    logout,
-  }
+  const value = useMemo<SessionContextValue>(() => ({ usuario, logout }), [usuario, logout])
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
 }

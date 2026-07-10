@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import { useNavigate } from '@tanstack/react-router'
+import { Fragment, useCallback, useState } from 'react'
 
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded'
@@ -19,23 +17,24 @@ const MenuItem = styled(MuiMenuItem)({
 })
 
 export default function MenuOpcoes() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const navigate = useNavigate()
   const { logout } = useSession()
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-  const handleClose = () => {
+
+  const handleClose = useCallback(() => {
     setAnchorEl(null)
-  }
-  const handleLogout = async () => {
-    handleClose()
+  }, [setAnchorEl])
+
+  const handleLogout = useCallback(async () => {
+    setAnchorEl(null)
     await logout()
-    await navigate({ to: '/login' })
-  }
+  }, [logout])
+
   return (
-    <React.Fragment>
+    <Fragment>
       <BotaoMenu aria-label="Open menu" onClick={handleClick} sx={{ borderColor: 'transparent' }}>
         <MoreVertRoundedIcon />
       </BotaoMenu>
@@ -69,6 +68,6 @@ export default function MenuOpcoes() {
           </ListItemIcon>
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </Fragment>
   )
 }

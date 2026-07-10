@@ -1,5 +1,3 @@
-import type { AnyFieldApi } from '@tanstack/react-form'
-
 import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -9,15 +7,26 @@ import Typography from '@mui/material/Typography'
 
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 
+type CampoFotoAvatarComBadgeProps = {
+  value: File | undefined
+  onChange: (file: File | undefined) => void
+  /** Foto já salva; exibida enquanto nenhum arquivo novo é selecionado. */
+  fotoUrlAtual?: string
+}
+
 /** Avatar grande com badge de câmera sobreposto, estilo redes sociais. */
-export function CampoFotoAvatarComBadge({ field }: { field: AnyFieldApi }) {
-  const file = field.state.value as File | undefined
-  const previewUrl = useObjectUrl(file)
+export function CampoFotoAvatarComBadge({
+  value,
+  onChange,
+  fotoUrlAtual,
+}: CampoFotoAvatarComBadgeProps) {
+  const previewUrl = useObjectUrl(value)
+  const avatarSrc = previewUrl ?? fotoUrlAtual
 
   return (
     <Stack spacing={1.5} sx={{ alignItems: 'center' }}>
       <Box sx={{ position: 'relative' }}>
-        <Avatar src={previewUrl} sx={{ width: 96, height: 96, fontSize: 32 }} />
+        <Avatar src={avatarSrc} sx={{ width: 96, height: 96, fontSize: 32 }} />
         <IconButton
           component="label"
           size="small"
@@ -36,11 +45,15 @@ export function CampoFotoAvatarComBadge({ field }: { field: AnyFieldApi }) {
             type="file"
             accept="image/*"
             hidden
-            onChange={(event) => field.handleChange(event.target.files?.[0])}
+            onChange={(event) => onChange(event.target.files?.[0])}
           />
         </IconButton>
       </Box>
-      <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', maxWidth: 240 }}>
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        sx={{ textAlign: 'center', maxWidth: 240 }}
+      >
         Prefira fotos quadradas (proporção 1:1) para um melhor resultado.
       </Typography>
     </Stack>

@@ -1,6 +1,4 @@
-import type { AnyFieldApi } from '@tanstack/react-form'
-
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
+import DeleteRounded from '@mui/icons-material/DeleteRounded'
 import UploadRoundedIcon from '@mui/icons-material/UploadRounded'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -9,10 +7,17 @@ import Typography from '@mui/material/Typography'
 
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 
+type CampoFotoComAcoesProps = {
+  value: File | undefined
+  onChange: (file: File | undefined) => void
+  /** Foto já salva; exibida enquanto nenhum arquivo novo é selecionado. */
+  fotoUrlAtual?: string
+}
+
 /** Cartão com avatar + ações explícitas de trocar/remover a foto. */
-export function CampoFotoComAcoes({ field }: { field: AnyFieldApi }) {
-  const file = field.state.value as File | undefined
-  const previewUrl = useObjectUrl(file)
+export function CampoFotoComAcoes({ value, onChange, fotoUrlAtual }: CampoFotoComAcoesProps) {
+  const previewUrl = useObjectUrl(value)
+  const avatarSrc = previewUrl ?? fotoUrlAtual
 
   return (
     <Stack
@@ -25,28 +30,33 @@ export function CampoFotoComAcoes({ field }: { field: AnyFieldApi }) {
         border: `1px solid ${(t.vars || t).palette.divider}`,
       })}
     >
-      <Avatar src={previewUrl} sx={{ width: 64, height: 64 }} />
+      <Avatar src={avatarSrc} sx={{ width: 64, height: 64 }} />
       <Stack spacing={1} sx={{ flex: 1 }}>
         <Typography variant="body2" color="text.secondary">
           Foto de perfil (opcional) · proporção 1:1 recomendada
         </Typography>
         <Stack direction="row" spacing={1}>
-          <Button component="label" size="small" variant="outlined" startIcon={<UploadRoundedIcon />}>
-            {file ? 'Trocar foto' : 'Enviar foto'}
+          <Button
+            component="label"
+            size="small"
+            variant="outlined"
+            startIcon={<UploadRoundedIcon />}
+          >
+            {avatarSrc ? 'Trocar foto' : 'Enviar foto'}
             <input
               type="file"
               accept="image/*"
               hidden
-              onChange={(event) => field.handleChange(event.target.files?.[0])}
+              onChange={(event) => onChange(event.target.files?.[0])}
             />
           </Button>
-          {file && (
+          {value && (
             <Button
               size="small"
               color="error"
               variant="text"
-              startIcon={<DeleteOutlineRoundedIcon />}
-              onClick={() => field.handleChange(undefined)}
+              startIcon={<DeleteRounded />}
+              onClick={() => onChange(undefined)}
             >
               Remover
             </Button>

@@ -1,5 +1,3 @@
-import type { AnyFieldApi } from '@tanstack/react-form'
-
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
@@ -7,10 +5,17 @@ import Typography from '@mui/material/Typography'
 
 import { useObjectUrl } from '@/hooks/useObjectUrl'
 
+type CampoFotoDropzoneProps = {
+  value: File | undefined
+  onChange: (file: File | undefined) => void
+  /** Foto já salva; exibida enquanto nenhum arquivo novo é selecionado. */
+  fotoUrlAtual?: string
+}
+
 /** Cartão inteiro clicável (dropzone), com destaque de borda ao passar o mouse. */
-export function CampoFotoDropzone({ field }: { field: AnyFieldApi }) {
-  const file = field.state.value as File | undefined
-  const previewUrl = useObjectUrl(file)
+export function CampoFotoDropzone({ value, onChange, fotoUrlAtual }: CampoFotoDropzoneProps) {
+  const previewUrl = useObjectUrl(value)
+  const avatarSrc = previewUrl ?? fotoUrlAtual
 
   return (
     <Stack
@@ -34,10 +39,10 @@ export function CampoFotoDropzone({ field }: { field: AnyFieldApi }) {
         type="file"
         accept="image/*"
         hidden
-        onChange={(event) => field.handleChange(event.target.files?.[0])}
+        onChange={(event) => onChange(event.target.files?.[0])}
       />
-      {previewUrl ? (
-        <Avatar src={previewUrl} sx={{ width: 56, height: 56 }} />
+      {avatarSrc ? (
+        <Avatar src={avatarSrc} sx={{ width: 56, height: 56 }} />
       ) : (
         <Stack
           sx={{
@@ -56,7 +61,7 @@ export function CampoFotoDropzone({ field }: { field: AnyFieldApi }) {
       )}
       <Stack spacing={0.25}>
         <Typography variant="body2" sx={{ fontWeight: 700 }}>
-          {file ? file.name : 'Clique para escolher uma foto'}
+          {value ? value.name : 'Clique para escolher uma foto'}
         </Typography>
         <Typography variant="caption" color="text.secondary">
           PNG ou JPG, proporção 1:1 recomendada.

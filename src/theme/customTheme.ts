@@ -1,4 +1,4 @@
-import { grey,pink } from '@mui/material/colors'
+import { grey, pink } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 // Fontes — instale via npm (recomendado, evita FOUC e depender de CDN externo):
@@ -267,6 +267,14 @@ export const customTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
+        },
+      },
+    },
+
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          padding: '0 24px 16px',
         },
       },
     },

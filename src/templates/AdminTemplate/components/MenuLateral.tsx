@@ -1,16 +1,17 @@
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import MuiDrawer, { drawerClasses } from '@mui/material/Drawer'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 
-import ConteudoMenu from './ConteudoMenu';
-import MenuOpcoes from './MenuOpcoes';
-import SeletorConteudo from './SeletorConteudo';
+import { useSession } from '../../../context/SessaoProvider'
+import ConteudoMenu from './ConteudoMenu'
+import MenuOpcoes from './MenuOpcoes'
+import SeletorConteudo from './SeletorConteudo'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const Drawer = styled(MuiDrawer)({
   width: drawerWidth,
@@ -21,9 +22,12 @@ const Drawer = styled(MuiDrawer)({
     width: drawerWidth,
     boxSizing: 'border-box',
   },
-});
+})
 
 export default function MenuLateral() {
+  const { usuario } = useSession()
+  const nome = [usuario.nm_pessoa, usuario.nm_sobrenome].filter(Boolean).join(' ')
+
   return (
     <Drawer
       variant="permanent"
@@ -62,24 +66,40 @@ export default function MenuLateral() {
           alignItems: 'center',
           borderTop: '1px solid',
           borderColor: 'divider',
+          overflow: 'hidden',
         }}
       >
         <Avatar
           sizes="small"
-          alt="Riley Carter"
-          src="/static/images/avatar/7.jpg"
+          alt={nome}
+          src={usuario.ur_avatar}
           sx={{ width: 36, height: 36 }}
-        />
-        <Box sx={{ mr: 'auto' }}>
+        >
+          {nome.charAt(0).toUpperCase()}
+        </Avatar>
+        <Box
+          sx={{
+            mr: 'auto',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+          }}
+        >
           <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: '16px' }}>
-            Riley Carter
+            {nome}
           </Typography>
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            riley@email.com
+          <Typography
+            variant="caption"
+            title={usuario.nm_email}
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            {usuario.nm_email}
           </Typography>
         </Box>
         <MenuOpcoes />
       </Stack>
     </Drawer>
-  );
+  )
 }

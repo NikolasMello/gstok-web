@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useRef } from 'react'
 
 import type { ChangeEvent, ChangeEventHandler, ComponentProps } from 'react'
 import type { ReactMaskOpts } from 'react-imask'
@@ -19,14 +19,33 @@ export function createMaskedInput(options: ReactMaskOpts) {
     { onChange, name, ...rest },
     ref,
   ) {
+    /**
+     * IMask dispara onAccept mais de uma vez já na montagem (normalizando o valor inicial),
+     * sem interação do usuário — e repete o mesmo valor nessas chamadas. Repassar isso pro
+     * form marcaria o campo como dirty (field.handleChange sempre seta isDirty, mesmo com o
+     * valor inalterado), fazendo o form de edição parecer alterado assim que a tela abre já
+     * preenchida. Por isso: a primeira chamada nunca é repassada, e as seguintes só são
+     * repassadas quando o valor de fato muda em relação à última aceita.
+     */
+    const isPrimeiroAccept = useRef(true)
+    const ultimoValorRef = useRef<string | null>(null)
+
     return (
       <IMaskInput
         {...rest}
         {...(options as ComponentProps<typeof IMaskInput>)}
         inputRef={ref}
-        onAccept={(value) =>
-          onChange?.({ target: { name, value: String(value) } } as ChangeEvent<HTMLInputElement>)
-        }
+        onAccept={(value) => {
+          const stringValue = String(value)
+          if (isPrimeiroAccept.current) {
+            isPrimeiroAccept.current = false
+            ultimoValorRef.current = stringValue
+            return
+          }
+          if (stringValue === ultimoValorRef.current) return
+          ultimoValorRef.current = stringValue
+          onChange?.({ target: { name, value: stringValue } } as ChangeEvent<HTMLInputElement>)
+        }}
       />
     )
   })

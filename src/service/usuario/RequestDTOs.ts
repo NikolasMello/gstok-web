@@ -6,6 +6,7 @@ export interface UsuarioCreateDto {
 
 /** PUT /usuario/{id} é multipart/form-data; ver UsuarioService.updateUsuario para o mapeamento dos campos. */
 export interface UsuarioUpdateDto {
+  cd_inscricao_nacional?: string
   nm_email?: string
   nm_pessoa?: string
   nm_sobrenome?: string
