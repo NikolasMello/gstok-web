@@ -40,18 +40,15 @@ export default function MenuOpcoes() {
       </BotaoMenu>
       <Menu
         anchorEl={anchorEl}
-        id="menu"
+        id="menu-usuario"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>Add another account</MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={handleClose}>Perfil</MenuItem>
+        <MenuItem onClick={handleClose}>Minhas vendas</MenuItem>
         <Divider />
         <MenuItem
           onClick={() => void handleLogout()}

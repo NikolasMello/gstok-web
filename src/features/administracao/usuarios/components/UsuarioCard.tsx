@@ -15,13 +15,14 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
 import type { UsuarioResponseDto } from '@/service/usuario/ResponseDTOs'
+import { nomeCompleto } from '@/utilities/nomeCompleto'
 
 import ExcluirUsuarioDialog from './ExcluirUsuarioDialog'
 
 export default function UsuarioCard({ usuario }: { usuario: UsuarioResponseDto }) {
   const [confirmandoExclusao, setConfirmandoExclusao] = useState(false)
 
-  const nome = [usuario.nm_pessoa, usuario.nm_sobrenome].filter(Boolean).join(' ')
+  const nome = nomeCompleto(usuario)
   const telefone = usuario.nm_telefone ? formatToPhone(usuario.nm_telefone.replace(/\D/g, '')) : '—'
 
   return (

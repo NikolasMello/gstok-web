@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { useSession } from '../../../context/SessaoProvider';
+import { nomeCompleto } from '../../../utilities/nomeCompleto';
 import BotaoMenu from './BotaoMenu';
 import CartaoAlerta from './CartaoAlerta';
 import ConteudoMenu from './ConteudoMenu';
@@ -19,7 +20,7 @@ interface MenuLateralMobileProps {
 
 export default function MenuLateralMobile({ open, toggleDrawer }: MenuLateralMobileProps) {
   const { usuario } = useSession();
-  const nome = [usuario.nm_pessoa, usuario.nm_sobrenome].filter(Boolean).join(' ');
+  const nome = nomeCompleto(usuario);
 
   return (
     <Drawer

@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 
 import { useNotification } from '@/context/NotificacaoProvider'
 import type { UsuarioResponseDto } from '@/service/usuario/ResponseDTOs'
+import { nomeCompleto } from '@/utilities/nomeCompleto'
 
 import { useDeleteUsuarioMutation } from '../hooks/useDeleteUsuarioMutation'
 
@@ -20,7 +21,7 @@ export default function ExcluirUsuarioDialog({ usuario, onClose }: ExcluirUsuari
   const { notifySuccess, notifyError } = useNotification()
   const deleteUsuarioMutation = useDeleteUsuarioMutation()
 
-  const nome = usuario ? [usuario.nm_pessoa, usuario.nm_sobrenome].filter(Boolean).join(' ') : ''
+  const nome = usuario ? nomeCompleto(usuario) : ''
 
   const handleConfirm = () => {
     if (!usuario) return

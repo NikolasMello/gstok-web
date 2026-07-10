@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
 import { useSession } from '../../../context/SessaoProvider'
+import { nomeCompleto } from '../../../utilities/nomeCompleto'
 import ConteudoMenu from './ConteudoMenu'
 import MenuOpcoes from './MenuOpcoes'
 import SeletorConteudo from './SeletorConteudo'
@@ -26,7 +27,7 @@ const Drawer = styled(MuiDrawer)({
 
 export default function MenuLateral() {
   const { usuario } = useSession()
-  const nome = [usuario.nm_pessoa, usuario.nm_sobrenome].filter(Boolean).join(' ')
+  const nome = nomeCompleto(usuario)
 
   return (
     <Drawer
