@@ -1,6 +1,6 @@
 import type { Estacao } from '../shared/enums'
 
-/** POST /produto é multipart/form-data; ver ProdutoService.createProduto para o mapeamento dos campos. */
+/** POST /produto é multipart/form-data; ver ProdutoService.criarProduto para o mapeamento dos campos. */
 export interface ProdutoCreateDto {
   cd_sku: string
   nm_produto: string

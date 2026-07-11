@@ -1,6 +1,6 @@
 import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query'
 
-import { listUsuarios } from '@/service/usuario/UsuarioService'
+import { obterUsuarios } from '@/service/usuario/UsuarioService'
 
 export const USUARIOS_PAGE_SIZE = 6
 
@@ -8,7 +8,7 @@ export const USUARIOS_PAGE_SIZE = 6
 export function usuariosQueryOptions(page: number, pageSize: number = USUARIOS_PAGE_SIZE) {
   return queryOptions({
     queryKey: ['usuarios', 'list', page, pageSize] as const,
-    queryFn: () => listUsuarios({ page, pageSize }),
+    queryFn: () => obterUsuarios({ page, pageSize }),
     placeholderData: keepPreviousData,
   })
 }

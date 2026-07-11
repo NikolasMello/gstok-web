@@ -1,12 +1,5 @@
 import type { PagedResult } from '../http'
 
-export interface UsuarioSessaoResponseDto {
-  nm_email: string
-  nm_pessoa?: string
-  nm_sobrenome?: string
-  ur_avatar?: string
-}
-
 export interface FotoPessoaResponseDto {
   id_foto_pessoa: string
   nm_imagem: string

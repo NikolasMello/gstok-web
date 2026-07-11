@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles'
 
 import { useSession } from '../../../context/SessaoProvider'
 import BotaoMenu from './BotaoMenu'
+import PerfilDialog from './PerfilDialog'
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
@@ -18,6 +19,7 @@ const MenuItem = styled(MuiMenuItem)({
 
 export default function MenuOpcoes() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [perfilAberto, setPerfilAberto] = useState(false)
   const open = Boolean(anchorEl)
   const { logout } = useSession()
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -27,6 +29,11 @@ export default function MenuOpcoes() {
   const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [setAnchorEl])
+
+  const handleAbrirPerfil = useCallback(() => {
+    setAnchorEl(null)
+    setPerfilAberto(true)
+  }, [])
 
   const handleLogout = useCallback(async () => {
     setAnchorEl(null)
@@ -47,7 +54,8 @@ export default function MenuOpcoes() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>Perfil</MenuItem>
+        <MenuItem onClick={handleAbrirPerfil}>Perfil</MenuItem>
+        <MenuItem onClick={handleClose}>Credenciais de acesso</MenuItem>
         <MenuItem onClick={handleClose}>Minhas vendas</MenuItem>
         <Divider />
         <MenuItem
@@ -65,6 +73,7 @@ export default function MenuOpcoes() {
           </ListItemIcon>
         </MenuItem>
       </Menu>
+      <PerfilDialog open={perfilAberto} onClose={() => setPerfilAberto(false)} />
     </Fragment>
   )
 }

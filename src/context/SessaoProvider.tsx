@@ -5,8 +5,8 @@ import { useNavigate } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import { logout as logoutRequest } from '../service/auth/AuthService'
-import type { UsuarioSessaoResponseDto } from '../service/usuario/ResponseDTOs'
-import { obterUsuarioSessao } from '../service/usuario/UsuarioService'
+import type { SessaoResponseDto } from '../service/sessao/ResponseDTOs'
+import { obterSessao } from '../service/sessao/SessaoService'
 
 /**
  * Compartilhado com os guards de rota (loader do /admin) via context.queryClient,
@@ -14,14 +14,14 @@ import { obterUsuarioSessao } from '../service/usuario/UsuarioService'
  */
 export const sessionQueryOptions = queryOptions({
   queryKey: ['session', 'me'] as const,
-  queryFn: obterUsuarioSessao,
+  queryFn: obterSessao,
   meta: { silent: true },
 })
 
 export const sessionQueryKey = sessionQueryOptions.queryKey
 
 type SessionContextValue = {
-  usuario: UsuarioSessaoResponseDto
+  usuario: SessaoResponseDto
   logout: () => Promise<void>
 }
 
@@ -29,7 +29,7 @@ const SessionContext = createContext<SessionContextValue | null>(null)
 
 type SessaoProviderProps = {
   /** Resolvido no loader da rota /admin antes do render — nunca undefined aqui. */
-  usuario: UsuarioSessaoResponseDto
+  usuario: SessaoResponseDto
   children: ReactNode
 }
 
