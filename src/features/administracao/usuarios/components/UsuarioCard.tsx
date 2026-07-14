@@ -58,7 +58,7 @@ export default function UsuarioCard({ usuario }: { usuario: UsuarioResponseDto }
           </Stack>
 
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center', py: 1 }}>
-            <LocalPhoneRounded sx={{ fontSize: 15, color: 'text.secondary' }} />
+            <LocalPhoneRounded fontSize='small' />
             <Typography variant="body2" color="text.secondary">
               {telefone}
             </Typography>

@@ -1,7 +1,7 @@
 import type { Estacao } from '../shared/enums'
 
 /** POST /produto é multipart/form-data; ver ProdutoService.criarProduto para o mapeamento dos campos. */
-export interface ProdutoCreateDto {
+export type ProdutoCreateDto = {
   cd_sku: string
   nm_produto: string
   ds_produto?: string
@@ -15,7 +15,7 @@ export interface ProdutoCreateDto {
   indice_imagem_principal?: number
 }
 
-export interface ProdutoUpdateDto {
+export type ProdutoUpdateDto = {
   cd_sku: string
   nm_produto: string
   ds_produto?: string | null
@@ -25,4 +25,14 @@ export interface ProdutoUpdateDto {
   tipo_produto_id?: string | null
   tp_estacao: Estacao
   fl_ativo?: boolean
+}
+
+export type ProdutoFiltroDto = {
+  nm_produto?: string
+  nm_tipo?: string
+  id_colecao?: string
+  id_fornecedor?: string
+  tp_estacao?: Estacao
+  fl_ativo?: boolean
+  cd_sku?: string
 }

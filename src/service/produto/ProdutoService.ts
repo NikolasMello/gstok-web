@@ -1,12 +1,14 @@
 import { toFormData } from '@/utilities/toFormData'
+import { toQueryParams } from '@/utilities/toQueryParams'
 
 import { httpClient } from '../http'
-import type { ProdutoCreateDto, ProdutoUpdateDto } from './RequestDTOs'
+import type { QueryParams } from '../shared/QueryParams'
+import type { ProdutoCreateDto, ProdutoFiltroDto, ProdutoUpdateDto } from './RequestDTOs'
 import type { ProdutoPagedResponseDto, ProdutoResponseDto } from './ResponseDTOs'
 
-export function obterProdutos(params?: { page?: number; pageSize?: number }) {
+export function obterProdutos(params?: QueryParams<ProdutoFiltroDto>) {
   return httpClient.get<ProdutoPagedResponseDto>('/produto', {
-    params: { Page: params?.page, PageSize: params?.pageSize },
+    params: toQueryParams(params),
   })
 }
 
