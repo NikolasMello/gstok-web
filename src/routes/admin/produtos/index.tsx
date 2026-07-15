@@ -10,7 +10,7 @@ const produtosSearchSchema = z.object({
   nmTipo: z.string().optional(),
   cdSku: z.string().optional(),
   idFornecedor: z.string().optional(),
-  tpEstacao: z.enum(['Inverno', 'Verao']).optional(),
+  tpEstacao: z.enum(['Inverno', 'Verao', 'Todas']).optional(),
   flAtivo: z.boolean().optional(),
 })
 

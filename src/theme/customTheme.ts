@@ -278,5 +278,81 @@ export const customTheme = createTheme({
         },
       },
     },
+
+    MuiCardHeader: {
+      styleOverrides: {
+        root: {
+          padding: '24px 24px 16px',
+        },
+      },
+      defaultProps: {
+        slotProps: {
+          title: {
+            variant: 'h6',
+          },
+        },
+      },
+    },
+
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: '16px 24px',
+        },
+      },
+    },
+
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: '16px 24px 24px',
+          justifyContent: 'flex-end',
+        },
+      },
+    },
+
+    MuiAutocomplete: {
+      defaultProps: {
+        slotProps: {
+          paper: {
+            style: {
+              padding: 12,
+            },
+          },
+        },
+      },
+      styleOverrides: {
+        option: {
+          borderRadius: 12,
+        },
+      },
+    },
+
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        root: {
+          gap: 8,
+        },
+        grouped: {
+          margin: 0,
+          border: 0,
+          borderRadius: '999px !important',
+        },
+      },
+    },
+
+    MuiToggleButton: {
+      styleOverrides: {
+        root: ({ theme: t }) => ({
+          textTransform: 'none',
+          fontWeight: 700,
+          paddingInline: 20,
+          border: `1px solid ${t.vars.palette.divider}`,
+          '&.Mui-selected': {
+            borderColor: 'transparent',
+          },
+        }),
+      },
+    },
   },
 })

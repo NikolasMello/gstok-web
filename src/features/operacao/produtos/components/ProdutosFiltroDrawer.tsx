@@ -35,7 +35,13 @@ type ProdutosFiltroDrawerProps = {
   onLimpar: () => void
 }
 
-export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar, onLimpar }: ProdutosFiltroDrawerProps) {
+export default function ProdutosFiltroDrawer({
+  open,
+  filtro,
+  onClose,
+  onAplicar,
+  onLimpar,
+}: ProdutosFiltroDrawerProps) {
   const [rascunho, setRascunho] = useState<ProdutosFiltro>(filtro)
   const [openAnterior, setOpenAnterior] = useState(open)
 
@@ -46,37 +52,49 @@ export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar,
 
   const { data: fornecedores, isLoading: carregandoFornecedores } = useFornecedoresQuery(open)
   const fornecedorSelecionado =
-    fornecedores?.items.find((fornecedor) => fornecedor.id_fornecedor === rascunho.idFornecedor) ?? null
+    fornecedores?.items.find((fornecedor) => fornecedor.id_fornecedor === rascunho.idFornecedor) ??
+    null
 
   return (
-    <Drawer anchor="left" open={open} onClose={onClose} slotProps={{ paper: { sx: { width: 320, p: 3 } } }}>
-      <Stack sx={{ height: '100%' }} spacing={3}>
-        <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      slotProps={{ paper: { sx: { width: 360 } } }}
+    >
+      <Stack sx={{ height: '100%' }}>
+        <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', p: 3 }}>
           <Typography variant="h6">Filtros</Typography>
           <IconButton onClick={onClose} size="small" aria-label="Fechar filtros">
             <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </Stack>
 
-        <Stack spacing={2} sx={{ flex: 1 }}>
+        <Stack spacing={3} sx={{ flex: 1, px: 3, py: 2 }}>
           <TextField
             label="Produto"
             value={rascunho.nmProduto ?? ''}
-            onChange={(e) => setRascunho((prev) => ({ ...prev, nmProduto: e.target.value || undefined }))}
+            onChange={(e) =>
+              setRascunho((prev) => ({ ...prev, nmProduto: e.target.value || undefined }))
+            }
             size="small"
             fullWidth
           />
           <TextField
             label="Tipo"
             value={rascunho.nmTipo ?? ''}
-            onChange={(e) => setRascunho((prev) => ({ ...prev, nmTipo: e.target.value || undefined }))}
+            onChange={(e) =>
+              setRascunho((prev) => ({ ...prev, nmTipo: e.target.value || undefined }))
+            }
             size="small"
             fullWidth
           />
           <TextField
             label="SKU"
             value={rascunho.cdSku ?? ''}
-            onChange={(e) => setRascunho((prev) => ({ ...prev, cdSku: e.target.value || undefined }))}
+            onChange={(e) =>
+              setRascunho((prev) => ({ ...prev, cdSku: e.target.value || undefined }))
+            }
             size="small"
             fullWidth
           />
@@ -87,7 +105,10 @@ export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar,
             getOptionLabel={(fornecedor) => fornecedor.nm_fantasia || fornecedor.nm_empresa}
             isOptionEqualToValue={(option, value) => option.id_fornecedor === value.id_fornecedor}
             onChange={(_, novoValor) =>
-              setRascunho((prev) => ({ ...prev, idFornecedor: novoValor?.id_fornecedor ?? undefined }))
+              setRascunho((prev) => ({
+                ...prev,
+                idFornecedor: novoValor?.id_fornecedor ?? undefined,
+              }))
             }
             size="small"
             noOptionsText="Nenhum fornecedor encontrado"
@@ -106,9 +127,10 @@ export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar,
             size="small"
             fullWidth
           >
-            <MenuItem value="">Todas</MenuItem>
+            <MenuItem value="">Qualquer estação</MenuItem>
             <MenuItem value="Inverno">Inverno</MenuItem>
             <MenuItem value="Verao">Verão</MenuItem>
+            <MenuItem value="Todas">Todas as estações</MenuItem>
           </TextField>
           <TextField
             select
@@ -116,7 +138,10 @@ export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar,
             value={rascunho.flAtivo === undefined ? '' : String(rascunho.flAtivo)}
             onChange={(e) => {
               const valor = e.target.value
-              setRascunho((prev) => ({ ...prev, flAtivo: valor === '' ? undefined : valor === 'true' }))
+              setRascunho((prev) => ({
+                ...prev,
+                flAtivo: valor === '' ? undefined : valor === 'true',
+              }))
             }}
             size="small"
             fullWidth
@@ -129,7 +154,7 @@ export default function ProdutosFiltroDrawer({ open, filtro, onClose, onAplicar,
 
         <Divider />
 
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} sx={{ px: 3, py: 2 }}>
           <Button
             fullWidth
             variant="text"

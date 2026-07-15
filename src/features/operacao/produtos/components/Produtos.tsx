@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
-import { getRouteApi } from '@tanstack/react-router'
+import { getRouteApi, Link as RouterLink } from '@tanstack/react-router'
 
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 
 import LayoutPagina from '@/components/layout/LayoutPagina'
 import type { ProdutoFiltroDto } from '@/service/produto/RequestDTOs'
@@ -38,11 +40,16 @@ export default function Produtos() {
     <LayoutPagina
       title="Produtos"
       action={
-        <Badge badgeContent={filtrosAtivos} color="primary">
-          <Button variant="outlined" startIcon={<FilterListRoundedIcon />} onClick={() => setFiltroAberto(true)}>
-            Filtros
+        <Stack direction="row" spacing={2}>
+          <Badge badgeContent={filtrosAtivos} color="primary">
+            <Button variant="outlined" startIcon={<FilterListRoundedIcon />} onClick={() => setFiltroAberto(true)}>
+              Filtros
+            </Button>
+          </Badge>
+          <Button component={RouterLink} to="/admin/produtos/novo" variant="contained" startIcon={<AddRoundedIcon />}>
+            Novo produto
           </Button>
-        </Badge>
+        </Stack>
       }
     >
       <ProdutosDataGrid

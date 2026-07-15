@@ -28,7 +28,7 @@ export const navGroups: NavGroup[] = [
   {
     title: 'Comercial',
     items: [
-      { text: 'Pedidos', Icon: ShoppingCartRoundedIcon, route: '/admin/pedidos' },
+      { text: 'Vendas', Icon: ShoppingCartRoundedIcon, route: '/admin/vendas' },
       {
         text: 'Devoluções | Trocas',
         Icon: AssignmentReturnRoundedIcon,

@@ -3,9 +3,16 @@ import Chip from '@mui/material/Chip'
 import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 
 import type { ProdutoResumoResponseDto } from '@/service/produto/ResponseDTOs'
+import type { Estacao } from '@/service/shared/enums'
 
 const formatadorMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 const formatadorData = new Intl.DateTimeFormat('pt-BR')
+
+const ESTACAO_LABEL: Record<Estacao, string> = {
+  Inverno: 'Inverno',
+  Verao: 'Verão',
+  Todas: 'Todas as estações',
+}
 
 const columns: GridColDef<ProdutoResumoResponseDto>[] = [
   {
@@ -42,9 +49,7 @@ const columns: GridColDef<ProdutoResumoResponseDto>[] = [
     field: 'tp_estacao',
     headerName: 'Estação',
     width: 110,
-    renderCell: ({ value }) => (
-      <Chip label={value === 'Inverno' ? 'Inverno' : 'Verão'} size="small" variant="outlined" />
-    ),
+    renderCell: ({ value }) => <Chip label={ESTACAO_LABEL[value as Estacao]} size="small" variant="outlined" />,
   },
   {
     field: 'vl_venda',

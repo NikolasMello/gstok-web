@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react'
+import { forwardRef } from 'react'
 
 import type { ChangeEvent, ChangeEventHandler, ComponentProps } from 'react'
 import type { ReactMaskOpts } from 'react-imask'
@@ -19,32 +19,25 @@ export function createMaskedInput(options: ReactMaskOpts) {
     { onChange, name, ...rest },
     ref,
   ) {
-    /**
-     * IMask dispara onAccept mais de uma vez já na montagem (normalizando o valor inicial),
-     * sem interação do usuário — e repete o mesmo valor nessas chamadas. Repassar isso pro
-     * form marcaria o campo como dirty (field.handleChange sempre seta isDirty, mesmo com o
-     * valor inalterado), fazendo o form de edição parecer alterado assim que a tela abre já
-     * preenchida. Por isso: a primeira chamada nunca é repassada, e as seguintes só são
-     * repassadas quando o valor de fato muda em relação à última aceita.
-     */
-    const isPrimeiroAccept = useRef(true)
-    const ultimoValorRef = useRef<string | null>(null)
-
     return (
       <IMaskInput
         {...rest}
         {...(options as ComponentProps<typeof IMaskInput>)}
         inputRef={ref}
-        onAccept={(value) => {
-          const stringValue = String(value)
-          if (isPrimeiroAccept.current) {
-            isPrimeiroAccept.current = false
-            ultimoValorRef.current = stringValue
-            return
-          }
-          if (stringValue === ultimoValorRef.current) return
-          ultimoValorRef.current = stringValue
-          onChange?.({ target: { name, value: stringValue } } as ChangeEvent<HTMLInputElement>)
+        onAccept={(value, _maskRef, event) => {
+          /**
+           * IMask dispara onAccept também fora de interação do usuário (normalização do valor
+           * inicial na montagem, resync do `value` controlado vindo do form) — essas chamadas
+           * não têm um DOM event associado (3º argumento vem undefined). Repassar essas
+           * chamadas pro form marcaria o campo como dirty à toa. Distinguir por "é a primeira
+           * chamada" (como era antes) não funciona: com o campo vazio (criação) o IMask não
+           * dispara accept nenhum na montagem, então a primeira chamada real acaba sendo a do
+           * próprio usuário — e se for um paste (valor inteiro aceito em uma única chamada,
+           * ao contrário de digitar), essa chamada era descartada e o form nunca ficava
+           * sabendo do valor colado, que só sumia depois ao sair do campo.
+           */
+          if (!event) return
+          onChange?.({ target: { name, value: String(value) } } as ChangeEvent<HTMLInputElement>)
         }}
       />
     )

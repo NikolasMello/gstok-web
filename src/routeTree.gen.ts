@@ -14,8 +14,8 @@ import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminVendasRouteImport } from './routes/admin/vendas'
 import { Route as AdminPromocoesRouteImport } from './routes/admin/promocoes'
-import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
 import { Route as AdminNotasFiscaisRouteImport } from './routes/admin/notas-fiscais'
 import { Route as AdminFluxoDeCaixaRouteImport } from './routes/admin/fluxo-de-caixa'
 import { Route as AdminEstoqueRouteImport } from './routes/admin/estoque'
@@ -31,6 +31,7 @@ import { Route as AdminUsuariosIndexRouteImport } from './routes/admin/usuarios/
 import { Route as AdminProdutosIndexRouteImport } from './routes/admin/produtos/index'
 import { Route as AdminFornecedoresIndexRouteImport } from './routes/admin/fornecedores/index'
 import { Route as AdminUsuariosNovoRouteImport } from './routes/admin/usuarios/novo'
+import { Route as AdminProdutosNovoRouteImport } from './routes/admin/produtos/novo'
 import { Route as AdminFornecedoresNovoRouteImport } from './routes/admin/fornecedores/novo'
 import { Route as AdminUsuariosIdEditarRouteImport } from './routes/admin/usuarios/$id.editar'
 import { Route as AdminFornecedoresIdEditarRouteImport } from './routes/admin/fornecedores/$id.editar'
@@ -60,14 +61,14 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminVendasRoute = AdminVendasRouteImport.update({
+  id: '/vendas',
+  path: '/vendas',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminPromocoesRoute = AdminPromocoesRouteImport.update({
   id: '/promocoes',
   path: '/promocoes',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-const AdminPedidosRoute = AdminPedidosRouteImport.update({
-  id: '/pedidos',
-  path: '/pedidos',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminNotasFiscaisRoute = AdminNotasFiscaisRouteImport.update({
@@ -145,6 +146,11 @@ const AdminUsuariosNovoRoute = AdminUsuariosNovoRouteImport.update({
   path: '/novo',
   getParentRoute: () => AdminUsuariosRouteRoute,
 } as any)
+const AdminProdutosNovoRoute = AdminProdutosNovoRouteImport.update({
+  id: '/novo',
+  path: '/novo',
+  getParentRoute: () => AdminProdutosRouteRoute,
+} as any)
 const AdminFornecedoresNovoRoute = AdminFornecedoresNovoRouteImport.update({
   id: '/novo',
   path: '/novo',
@@ -178,10 +184,11 @@ export interface FileRoutesByFullPath {
   '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fluxo-de-caixa': typeof AdminFluxoDeCaixaRoute
   '/admin/notas-fiscais': typeof AdminNotasFiscaisRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
+  '/admin/vendas': typeof AdminVendasRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/fornecedores/novo': typeof AdminFornecedoresNovoRoute
+  '/admin/produtos/novo': typeof AdminProdutosNovoRoute
   '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/admin/fornecedores/': typeof AdminFornecedoresIndexRoute
   '/admin/produtos/': typeof AdminProdutosIndexRoute
@@ -201,10 +208,11 @@ export interface FileRoutesByTo {
   '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fluxo-de-caixa': typeof AdminFluxoDeCaixaRoute
   '/admin/notas-fiscais': typeof AdminNotasFiscaisRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
+  '/admin/vendas': typeof AdminVendasRoute
   '/admin': typeof AdminIndexRoute
   '/admin/fornecedores/novo': typeof AdminFornecedoresNovoRoute
+  '/admin/produtos/novo': typeof AdminProdutosNovoRoute
   '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/admin/fornecedores': typeof AdminFornecedoresIndexRoute
   '/admin/produtos': typeof AdminProdutosIndexRoute
@@ -229,10 +237,11 @@ export interface FileRoutesById {
   '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fluxo-de-caixa': typeof AdminFluxoDeCaixaRoute
   '/admin/notas-fiscais': typeof AdminNotasFiscaisRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
+  '/admin/vendas': typeof AdminVendasRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/fornecedores/novo': typeof AdminFornecedoresNovoRoute
+  '/admin/produtos/novo': typeof AdminProdutosNovoRoute
   '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/admin/fornecedores/': typeof AdminFornecedoresIndexRoute
   '/admin/produtos/': typeof AdminProdutosIndexRoute
@@ -258,10 +267,11 @@ export interface FileRouteTypes {
     | '/admin/estoque'
     | '/admin/fluxo-de-caixa'
     | '/admin/notas-fiscais'
-    | '/admin/pedidos'
     | '/admin/promocoes'
+    | '/admin/vendas'
     | '/admin/'
     | '/admin/fornecedores/novo'
+    | '/admin/produtos/novo'
     | '/admin/usuarios/novo'
     | '/admin/fornecedores/'
     | '/admin/produtos/'
@@ -281,10 +291,11 @@ export interface FileRouteTypes {
     | '/admin/estoque'
     | '/admin/fluxo-de-caixa'
     | '/admin/notas-fiscais'
-    | '/admin/pedidos'
     | '/admin/promocoes'
+    | '/admin/vendas'
     | '/admin'
     | '/admin/fornecedores/novo'
+    | '/admin/produtos/novo'
     | '/admin/usuarios/novo'
     | '/admin/fornecedores'
     | '/admin/produtos'
@@ -308,10 +319,11 @@ export interface FileRouteTypes {
     | '/admin/estoque'
     | '/admin/fluxo-de-caixa'
     | '/admin/notas-fiscais'
-    | '/admin/pedidos'
     | '/admin/promocoes'
+    | '/admin/vendas'
     | '/admin/'
     | '/admin/fornecedores/novo'
+    | '/admin/produtos/novo'
     | '/admin/usuarios/novo'
     | '/admin/fornecedores/'
     | '/admin/produtos/'
@@ -364,18 +376,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/vendas': {
+      id: '/admin/vendas'
+      path: '/vendas'
+      fullPath: '/admin/vendas'
+      preLoaderRoute: typeof AdminVendasRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/promocoes': {
       id: '/admin/promocoes'
       path: '/promocoes'
       fullPath: '/admin/promocoes'
       preLoaderRoute: typeof AdminPromocoesRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
-    '/admin/pedidos': {
-      id: '/admin/pedidos'
-      path: '/pedidos'
-      fullPath: '/admin/pedidos'
-      preLoaderRoute: typeof AdminPedidosRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/admin/notas-fiscais': {
@@ -483,6 +495,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsuariosNovoRouteImport
       parentRoute: typeof AdminUsuariosRouteRoute
     }
+    '/admin/produtos/novo': {
+      id: '/admin/produtos/novo'
+      path: '/novo'
+      fullPath: '/admin/produtos/novo'
+      preLoaderRoute: typeof AdminProdutosNovoRouteImport
+      parentRoute: typeof AdminProdutosRouteRoute
+    }
     '/admin/fornecedores/novo': {
       id: '/admin/fornecedores/novo'
       path: '/novo'
@@ -526,10 +545,12 @@ const AdminFornecedoresRouteRouteWithChildren =
   )
 
 interface AdminProdutosRouteRouteChildren {
+  AdminProdutosNovoRoute: typeof AdminProdutosNovoRoute
   AdminProdutosIndexRoute: typeof AdminProdutosIndexRoute
 }
 
 const AdminProdutosRouteRouteChildren: AdminProdutosRouteRouteChildren = {
+  AdminProdutosNovoRoute: AdminProdutosNovoRoute,
   AdminProdutosIndexRoute: AdminProdutosIndexRoute,
 }
 
@@ -563,8 +584,8 @@ interface AdminRouteRouteChildren {
   AdminEstoqueRoute: typeof AdminEstoqueRoute
   AdminFluxoDeCaixaRoute: typeof AdminFluxoDeCaixaRoute
   AdminNotasFiscaisRoute: typeof AdminNotasFiscaisRoute
-  AdminPedidosRoute: typeof AdminPedidosRoute
   AdminPromocoesRoute: typeof AdminPromocoesRoute
+  AdminVendasRoute: typeof AdminVendasRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -580,8 +601,8 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminEstoqueRoute: AdminEstoqueRoute,
   AdminFluxoDeCaixaRoute: AdminFluxoDeCaixaRoute,
   AdminNotasFiscaisRoute: AdminNotasFiscaisRoute,
-  AdminPedidosRoute: AdminPedidosRoute,
   AdminPromocoesRoute: AdminPromocoesRoute,
+  AdminVendasRoute: AdminVendasRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

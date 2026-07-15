@@ -1,4 +1,5 @@
-export type Estacao = 'Inverno' | 'Verao'
+/** 'Todas' é para produtos sem sazonalidade (ex.: meias genéricas) — não confundir com "sem filtro" na UI de busca. */
+export type Estacao = 'Inverno' | 'Verao' | 'Todas'
 
 export type TamanhoRoupa = 'PP' | 'P' | 'M' | 'G' | 'GG' | 'XGG'
 

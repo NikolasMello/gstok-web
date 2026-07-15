@@ -5,11 +5,11 @@ export type ProdutoCreateDto = {
   cd_sku: string
   nm_produto: string
   ds_produto?: string
-  nm_marca?: string
   vl_preco: number
   vl_venda: number
   tipo_produto_id?: string
   tp_estacao: Estacao
+  id_colecao: string
   imagens?: File[]
   captions?: string[]
   indice_imagem_principal?: number
@@ -19,11 +19,11 @@ export type ProdutoUpdateDto = {
   cd_sku: string
   nm_produto: string
   ds_produto?: string | null
-  nm_marca?: string | null
   vl_preco: number
   vl_venda: number
   tipo_produto_id?: string | null
   tp_estacao: Estacao
+  id_colecao: string
   fl_ativo?: boolean
 }
 
