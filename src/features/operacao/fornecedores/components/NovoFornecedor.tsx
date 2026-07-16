@@ -15,6 +15,7 @@ export default function NovoFornecedor() {
           nm_empresa: '',
           nm_fantasia: '',
           nm_marca: '',
+          colecoes: [],
         }}
         isSubmitting={createFornecedorMutation.isPending}
         onSubmit={(value) => {
@@ -23,6 +24,7 @@ export default function NovoFornecedor() {
             nm_empresa: value.nm_empresa,
             nm_fantasia: value.nm_fantasia || undefined,
             nm_marca: value.nm_marca || undefined,
+            nm_colecoes: value.colecoes?.length ? value.colecoes : undefined,
           })
         }}
       />

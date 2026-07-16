@@ -3,6 +3,7 @@ export type FornecedorCreateDto = {
   nm_empresa: string
   nm_fantasia?: string | null
   nm_marca?: string | null
+  nm_colecoes?: string[]
 }
 
 export type FornecedorUpdateDto = {

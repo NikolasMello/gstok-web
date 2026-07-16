@@ -5,21 +5,21 @@ import type { Estacao } from '@/service/shared/enums'
 const precoSchema = z.number({ error: 'Informe o valor.' }).nonnegative({ error: 'O valor não pode ser negativo.' })
 
 export const produtoSchema = z.object({
-  cd_sku: z
+  cd_ean: z
     .string()
-    .min(1, { error: 'Informe o SKU.' })
-    .max(50, { error: 'O SKU deve ter no máximo 50 caracteres.' }),
+    .min(1, { error: 'Informe o EAN.' })
+    .max(13, { error: 'O EAN deve ter no máximo 13 caracteres.' }),
   nm_produto: z
     .string()
     .min(1, { error: 'Informe o nome do produto.' })
     .max(150, { error: 'O nome deve ter no máximo 150 caracteres.' }),
-  ds_produto: z.string().max(2000, { error: 'A descrição deve ter no máximo 2000 caracteres.' }),
+  ds_produto: z.string().max(500, { error: 'A descrição deve ter no máximo 500 caracteres.' }),
   vl_preco: precoSchema,
   vl_venda: precoSchema,
   tp_estacao: z.enum(['Inverno', 'Verao', 'Todas'], { error: 'Selecione a estação.' }),
-  /** Só existe para popular o Autocomplete de coleção em cascata — o backend não recebe id_fornecedor, só id_colecao. */
+  /** Só existe para popular o Autocomplete de coleção em cascata — o backend não recebe id_fornecedor, só colecao_id. */
   id_fornecedor: z.string().min(1, { error: 'Selecione o fornecedor.' }),
-  id_colecao: z.string().min(1, { error: 'Selecione a coleção.' }),
+  colecao_id: z.string().min(1, { error: 'Selecione a coleção.' }),
   imagens: z.array(z.instanceof(File)),
 })
 

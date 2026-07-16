@@ -9,12 +9,18 @@ import Stack from '@mui/material/Stack'
 
 import FormTextField from '@/components/form/FormTextField'
 import { CnpjMaskedInput } from '@/components/form/masks'
+import type { FornecedorColecaoResumoDto } from '@/service/fornecedor/ResponseDTOs'
 
 import type { FornecedorFormValues } from '../schemas/fornecedorSchema'
 import { fornecedorSchema } from '../schemas/fornecedorSchema'
+import ColecoesGerenciador from './ColecoesGerenciador'
+import NovasColecoesInput from './NovasColecoesInput'
 
 type FornecedorFormProps = {
   mode: 'create' | 'edit'
+  /** Necessário no modo edição para adicionar/excluir coleções direto pela API. */
+  fornecedorId?: string
+  colecoesExistentes?: FornecedorColecaoResumoDto[]
   defaultValues: FornecedorFormValues
   isSubmitting?: boolean
   onSubmit: (value: FornecedorFormValues) => void
@@ -22,6 +28,8 @@ type FornecedorFormProps = {
 
 export default function FornecedorForm({
   mode,
+  fornecedorId,
+  colecoesExistentes,
   defaultValues,
   isSubmitting = false,
   onSubmit,
@@ -91,6 +99,20 @@ export default function FornecedorForm({
                   <FormTextField field={field} label="Marca" fullWidth autoComplete="off" />
                 )}
               </Field>
+            </Grid>
+            <Grid size={12}>
+              {isEdicao ? (
+                fornecedorId && (
+                  <ColecoesGerenciador
+                    fornecedorId={fornecedorId}
+                    colecoes={colecoesExistentes ?? []}
+                  />
+                )
+              ) : (
+                <Field name="colecoes">
+                  {(field) => <NovasColecoesInput field={field} />}
+                </Field>
+              )}
             </Grid>
           </Grid>
         </Stack>

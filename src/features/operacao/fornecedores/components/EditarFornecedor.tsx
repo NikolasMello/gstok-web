@@ -19,6 +19,8 @@ export default function EditarFornecedor() {
     <LayoutPagina title="Editar fornecedor" maxWidth="md">
       <FornecedorForm
         mode="edit"
+        fornecedorId={id}
+        colecoesExistentes={fornecedor.colecoes}
         defaultValues={{
           cd_cnpj: fornecedor.cd_cnpj,
           nm_empresa: fornecedor.nm_empresa,

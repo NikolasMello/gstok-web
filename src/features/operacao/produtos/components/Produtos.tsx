@@ -18,16 +18,16 @@ import ProdutosFiltroDrawer, { type ProdutosFiltro } from './ProdutosFiltroDrawe
 const routeApi = getRouteApi('/admin/produtos/')
 
 export default function Produtos() {
-  const { page = 1, nmProduto, nmTipo, cdSku, idFornecedor, tpEstacao, flAtivo } = routeApi.useSearch()
+  const { page = 1, nmProduto, nmTipo, cdEan, idFornecedor, tpEstacao, flAtivo } = routeApi.useSearch()
   const navigate = routeApi.useNavigate()
   const [filtroAberto, setFiltroAberto] = useState(false)
 
-  const filtroAtual: ProdutosFiltro = { nmProduto, nmTipo, cdSku, idFornecedor, tpEstacao, flAtivo }
+  const filtroAtual: ProdutosFiltro = { nmProduto, nmTipo, cdEan, idFornecedor, tpEstacao, flAtivo }
 
   const filtro: ProdutoFiltroDto = {
     nm_produto: nmProduto,
     nm_tipo: nmTipo,
-    cd_sku: cdSku,
+    cd_ean: cdEan,
     id_fornecedor: idFornecedor,
     tp_estacao: tpEstacao,
     fl_ativo: flAtivo,

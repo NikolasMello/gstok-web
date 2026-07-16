@@ -8,7 +8,7 @@ const produtosSearchSchema = z.object({
   page: z.number().int().min(1).optional(),
   nmProduto: z.string().optional(),
   nmTipo: z.string().optional(),
-  cdSku: z.string().optional(),
+  cdEan: z.string().optional(),
   idFornecedor: z.string().optional(),
   tpEstacao: z.enum(['Inverno', 'Verao', 'Todas']).optional(),
   flAtivo: z.boolean().optional(),
@@ -16,12 +16,12 @@ const produtosSearchSchema = z.object({
 
 export const Route = createFileRoute('/admin/produtos/')({
   validateSearch: produtosSearchSchema,
-  loaderDeps: ({ search: { page = 1, nmProduto, nmTipo, cdSku, idFornecedor, tpEstacao, flAtivo } }) => ({
+  loaderDeps: ({ search: { page = 1, nmProduto, nmTipo, cdEan, idFornecedor, tpEstacao, flAtivo } }) => ({
     page,
     filtro: {
       nm_produto: nmProduto,
       nm_tipo: nmTipo,
-      cd_sku: cdSku,
+      cd_ean: cdEan,
       id_fornecedor: idFornecedor,
       tp_estacao: tpEstacao,
       fl_ativo: flAtivo,

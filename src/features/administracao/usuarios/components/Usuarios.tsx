@@ -38,7 +38,7 @@ export default function Usuarios() {
       }
     >
       <Box sx={{ position: 'relative', opacity: isPlaceholderData ? 0.6 : 1 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={{ xs: 3, lg: 4 }}>
           {data?.items.map((usuario) => (
             <Grid key={usuario.id_usuario} size={{ xs: 12, sm: 6, md: 4 }}>
               <UsuarioCard usuario={usuario} />

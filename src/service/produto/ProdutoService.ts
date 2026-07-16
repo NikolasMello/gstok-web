@@ -16,7 +16,7 @@ export function obterProduto(id: string) {
   return httpClient.get<ProdutoResponseDto>(`/produto/${id}`)
 }
 
-/** Endpoint recebe multipart/form-data; os nomes de campo seguem o model binding do backend (PascalCase). */
+/** Endpoint recebe multipart/form-data; os nomes de campo seguem o model binding do backend (snake_case). */
 export function criarProduto(payload: ProdutoCreateDto) {
   return httpClient.post<ProdutoResponseDto>('/produto', toFormData(payload))
 }

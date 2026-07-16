@@ -12,7 +12,7 @@ export function obterDadosPessoais() {
   return httpClient.get<SessaoDadosPessoaisResponseDto>('/sessao/dados-pessoais')
 }
 
-/** Endpoint recebe multipart/form-data; os nomes de campo seguem o model binding do backend (PascalCase). */
+/** Endpoint recebe multipart/form-data; os nomes de campo seguem o model binding do backend (snake_case). */
 export function atualizarDadosPessoais(payload: SessaoDadosPessoaisUpdateDto) {
   return httpClient.put<SessaoDadosPessoaisResponseDto>(
     '/sessao/dados-pessoais',

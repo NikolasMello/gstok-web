@@ -4,7 +4,7 @@ import type { Estacao } from '../shared/enums'
 
 export type ProdutoResponseDto = {
   id_produto: string
-  cd_sku: string
+  cd_ean: string
   nm_produto: string
   ds_produto?: string | null
   nm_marca?: string | null

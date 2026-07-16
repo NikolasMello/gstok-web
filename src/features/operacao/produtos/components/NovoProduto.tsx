@@ -10,14 +10,14 @@ export default function NovoProduto() {
     <LayoutPagina title="Novo produto" maxWidth="md">
       <ProdutoForm
         defaultValues={{
-          cd_sku: '',
+          cd_ean: '',
           nm_produto: '',
           ds_produto: '',
           vl_preco: null,
           vl_venda: null,
           tp_estacao: '',
           id_fornecedor: '',
-          id_colecao: '',
+          colecao_id: '',
           imagens: [],
         }}
         isSubmitting={createProdutoMutation.isPending}
@@ -25,13 +25,13 @@ export default function NovoProduto() {
           if (value.tp_estacao === '' || value.vl_preco === null || value.vl_venda === null) return
 
           createProdutoMutation.mutate({
-            cd_sku: value.cd_sku,
+            cd_ean: value.cd_ean,
             nm_produto: value.nm_produto,
             ds_produto: value.ds_produto || undefined,
             vl_preco: value.vl_preco,
             vl_venda: value.vl_venda,
             tp_estacao: value.tp_estacao,
-            id_colecao: value.id_colecao,
+            colecao_id: value.colecao_id,
             imagens: value.imagens.length > 0 ? value.imagens : undefined,
             indice_imagem_principal: value.imagens.length > 0 ? 0 : undefined,
           })

@@ -11,6 +11,7 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
+import { blue, orange } from '@mui/material/colors'
 import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -18,6 +19,7 @@ import FormLabel from '@mui/material/FormLabel'
 import Grid from '@mui/material/Grid'
 import InputAdornment from '@mui/material/InputAdornment'
 import Stack from '@mui/material/Stack'
+import { alpha } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
@@ -128,14 +130,15 @@ export default function ProdutoForm({
             <Typography variant="h6">Identificação</Typography>
             <Grid container spacing={3}>
               <Grid size={{ xs: 12, sm: 4 }}>
-                <Field name="cd_sku">
+                <Field name="cd_ean">
                   {(field) => (
                     <FormTextField
                       field={field}
-                      label="SKU"
+                      label="EAN"
                       required
                       fullWidth
                       autoComplete="off"
+                      slotProps={{ htmlInput: { maxLength: 13 } }}
                     />
                   )}
                 </Field>
@@ -174,7 +177,7 @@ export default function ProdutoForm({
                         }
                         onChange={(_, novoValor) => {
                           field.handleChange(novoValor?.id_fornecedor ?? '')
-                          form.setFieldValue('id_colecao', '')
+                          form.setFieldValue('colecao_id', '')
                         }}
                         onBlur={field.handleBlur}
                         noOptionsText="Nenhum fornecedor encontrado"
@@ -195,7 +198,7 @@ export default function ProdutoForm({
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Subscribe selector={(state) => state.values.id_fornecedor}>
                   {(idFornecedorSelecionado) => (
-                    <Field name="id_colecao">
+                    <Field name="colecao_id">
                       {(field) => (
                         <ColecaoAutocompleteField
                           field={field}
@@ -215,22 +218,96 @@ export default function ProdutoForm({
                         <FormLabel sx={{ mb: 1 }}>Estação</FormLabel>
                         <ToggleButtonGroup
                           exclusive
-                          color="primary"
                           value={field.state.value || null}
                           onChange={(_, novoValor: Estacao | null) => {
                             if (novoValor !== null) field.handleChange(novoValor)
                           }}
                           onBlur={field.handleBlur}
                         >
-                          <ToggleButton value="Todas">
-                            <AllInclusiveRoundedIcon fontSize="small" sx={{ mr: 1 }} />
-                            Todas as estações
+                          <ToggleButton
+                            value="Todas"
+                            sx={(theme) => {
+                              const degrade = (opacidade: number) =>
+                                `linear-gradient(90deg, ${alpha(blue[500], opacidade)} 0%, ${alpha(blue[500], opacidade)} 40%, ${alpha(orange[500], opacidade)} 60%, ${alpha(orange[500], opacidade)} 100%)`
+
+                              return {
+                                '&.Mui-selected': {
+                                  color: theme.palette.text.primary,
+                                  background: degrade(theme.palette.action.selectedOpacity),
+                                  '&:hover': {
+                                    background: degrade(
+                                      theme.palette.action.selectedOpacity +
+                                        theme.palette.action.hoverOpacity,
+                                    ),
+                                  },
+                                },
+                              }
+                            }}
+                          >
+                            <AllInclusiveRoundedIcon
+                              fontSize="small"
+                              sx={{
+                                mr: 1,
+                                color: field.state.value === 'Todas' ? blue[700] : 'inherit',
+                              }}
+                            />
+                            <span
+                              style={
+                                field.state.value === 'Todas'
+                                  ? {
+                                      backgroundImage: `linear-gradient(90deg, ${blue[500]}, ${orange[500]} 80%)`,
+                                      backgroundClip: 'text',
+                                      WebkitBackgroundClip: 'text',
+                                      color: 'transparent',
+                                      WebkitTextFillColor: 'transparent',
+                                    }
+                                  : undefined
+                              }
+                            >
+                              Todas as estações
+                            </span>
                           </ToggleButton>
-                          <ToggleButton value="Verao">
+                          <ToggleButton
+                            value="Verao"
+                            sx={(theme) => ({
+                              '&.Mui-selected': {
+                                color: orange[700],
+                                backgroundColor: alpha(
+                                  orange[500],
+                                  theme.palette.action.selectedOpacity,
+                                ),
+                                '&:hover': {
+                                  backgroundColor: alpha(
+                                    orange[500],
+                                    theme.palette.action.selectedOpacity +
+                                      theme.palette.action.hoverOpacity,
+                                  ),
+                                },
+                              },
+                            })}
+                          >
                             <WbSunnyRoundedIcon fontSize="small" sx={{ mr: 1 }} />
                             Verão
                           </ToggleButton>
-                          <ToggleButton value="Inverno">
+                          <ToggleButton
+                            value="Inverno"
+                            sx={(theme) => ({
+                              '&.Mui-selected': {
+                                color: blue[700],
+                                backgroundColor: alpha(
+                                  blue[500],
+                                  theme.palette.action.selectedOpacity,
+                                ),
+                                '&:hover': {
+                                  backgroundColor: alpha(
+                                    blue[500],
+                                    theme.palette.action.selectedOpacity +
+                                      theme.palette.action.hoverOpacity,
+                                  ),
+                                },
+                              },
+                            })}
+                          >
                             <AcUnitRoundedIcon fontSize="small" sx={{ mr: 1 }} />
                             Inverno
                           </ToggleButton>

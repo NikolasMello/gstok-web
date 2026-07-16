@@ -19,7 +19,7 @@ import { useFornecedoresQuery } from '../hooks/useFornecedoresQuery'
 export type ProdutosFiltro = {
   nmProduto?: string
   nmTipo?: string
-  cdSku?: string
+  cdEan?: string
   idFornecedor?: string
   tpEstacao?: Estacao
   flAtivo?: boolean
@@ -90,10 +90,10 @@ export default function ProdutosFiltroDrawer({
             fullWidth
           />
           <TextField
-            label="SKU"
-            value={rascunho.cdSku ?? ''}
+            label="EAN"
+            value={rascunho.cdEan ?? ''}
             onChange={(e) =>
-              setRascunho((prev) => ({ ...prev, cdSku: e.target.value || undefined }))
+              setRascunho((prev) => ({ ...prev, cdEan: e.target.value || undefined }))
             }
             size="small"
             fullWidth
