@@ -36,6 +36,7 @@ import { useColecoesQuery } from '../hooks/useColecoesQuery'
 import { useFornecedoresQuery } from '../hooks/useFornecedoresQuery'
 import type { ProdutoFormValues } from '../schemas/produtoSchema'
 import { produtoSchema } from '../schemas/produtoSchema'
+import TipoProdutoAutocompleteField from './TipoProdutoAutocompleteField'
 
 type ProdutoFormProps = {
   defaultValues: ProdutoFormValues
@@ -154,6 +155,11 @@ export default function ProdutoForm({
                       autoComplete="off"
                     />
                   )}
+                </Field>
+              </Grid>
+              <Grid size={12}>
+                <Field name="tipo_produto_id">
+                  {(field) => <TipoProdutoAutocompleteField field={field} />}
                 </Field>
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }}>

@@ -17,6 +17,7 @@ export const produtoSchema = z.object({
   vl_preco: precoSchema,
   vl_venda: precoSchema,
   tp_estacao: z.enum(['Inverno', 'Verao', 'Todas'], { error: 'Selecione a estação.' }),
+  tipo_produto_id: z.string().min(1, { error: 'Selecione o tipo de produto.' }),
   /** Só existe para popular o Autocomplete de coleção em cascata — o backend não recebe id_fornecedor, só colecao_id. */
   id_fornecedor: z.string().min(1, { error: 'Selecione o fornecedor.' }),
   colecao_id: z.string().min(1, { error: 'Selecione a coleção.' }),

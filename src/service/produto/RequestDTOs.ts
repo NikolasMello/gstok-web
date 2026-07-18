@@ -7,7 +7,7 @@ export type ProdutoCreateDto = {
   ds_produto?: string
   vl_preco: number
   vl_venda: number
-  tipo_produto_id?: string
+  tipo_produto_id: string
   tp_estacao: Estacao
   colecao_id: string
   imagens?: File[]
@@ -21,7 +21,7 @@ export type ProdutoUpdateDto = {
   ds_produto?: string | null
   vl_preco: number
   vl_venda: number
-  tipo_produto_id?: string | null
+  tipo_produto_id: string
   tp_estacao: Estacao
   colecao_id: string
   fl_ativo?: boolean
