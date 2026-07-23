@@ -10,11 +10,11 @@ import Tabs from '@mui/material/Tabs'
 import LayoutPagina from '@/components/layout/LayoutPagina'
 import { useNotification } from '@/context/NotificacaoProvider'
 
-import { useColecaoQuery } from '../hooks/useColecaoQuery'
-import { useProdutoQuery } from '../hooks/useProdutoQuery'
-import { useUpdateProdutoMutation } from '../hooks/useUpdateProdutoMutation'
+import { useColecaoQuery } from '../../hooks/useColecaoQuery'
+import { useProdutoQuery } from '../../hooks/useProdutoQuery'
+import { useUpdateProdutoMutation } from '../../hooks/useUpdateProdutoMutation'
+import ProdutoForm from '../ProdutoForm'
 import ImagensProdutoTab from './ImagensProdutoTab'
-import ProdutoForm from './ProdutoForm'
 
 const routeApi = getRouteApi('/admin/produtos/$id/editar')
 
@@ -30,7 +30,7 @@ export default function EditarProduto() {
   if (!produto || !colecao) return null
 
   return (
-    <LayoutPagina title="Editar produto" maxWidth="md">
+    <LayoutPagina title="Editar produto" maxWidth="lg">
       <Card variant="outlined">
         <Tabs
           value={aba}

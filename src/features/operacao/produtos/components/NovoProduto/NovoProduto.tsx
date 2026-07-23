@@ -1,7 +1,7 @@
 import LayoutPagina from '@/components/layout/LayoutPagina'
 
-import { useCreateProdutoMutation } from '../hooks/useCreateProdutoMutation'
-import ProdutoForm from './ProdutoForm'
+import { useCreateProdutoMutation } from '../../hooks/useCreateProdutoMutation'
+import ProdutoForm from '../ProdutoForm'
 
 export default function NovoProduto() {
   const createProdutoMutation = useCreateProdutoMutation()

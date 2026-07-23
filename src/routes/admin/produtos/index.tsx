@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 
-import Produtos from '@/features/operacao/produtos/components/Produtos'
+import Produtos from '@/features/operacao/produtos/components/Produtos/Produtos'
 import { PRODUTOS_PAGE_SIZE, produtosQueryOptions } from '@/features/operacao/produtos/hooks/useProdutosQuery'
 
 const produtosSearchSchema = z.object({

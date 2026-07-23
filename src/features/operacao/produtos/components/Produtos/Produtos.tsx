@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack'
 import LayoutPagina from '@/components/layout/LayoutPagina'
 import type { ProdutoFiltroDto } from '@/service/produto/RequestDTOs'
 
-import { PRODUTOS_PAGE_SIZE, useProdutosQuery } from '../hooks/useProdutosQuery'
+import { PRODUTOS_PAGE_SIZE, useProdutosQuery } from '../../hooks/useProdutosQuery'
 import ProdutosDataGrid from './ProdutosDataGrid'
 import ProdutosFiltroDrawer, { type ProdutosFiltro } from './ProdutosFiltroDrawer'
 

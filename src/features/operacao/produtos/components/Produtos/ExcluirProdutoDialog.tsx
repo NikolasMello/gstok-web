@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { useNotification } from '@/context/NotificacaoProvider'
 import type { ProdutoResumoResponseDto } from '@/service/produto/ResponseDTOs'
 
-import { useDeleteProdutoMutation } from '../hooks/useDeleteProdutoMutation'
+import { useDeleteProdutoMutation } from '../../hooks/useDeleteProdutoMutation'
 
 type ExcluirProdutoDialogProps = {
   /** Produto a excluir; o dialog fica aberto enquanto for diferente de null. */

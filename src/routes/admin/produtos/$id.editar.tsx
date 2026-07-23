@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import EditarProduto from '@/features/operacao/produtos/components/EditarProduto'
+import EditarProduto from '@/features/operacao/produtos/components/EditarProduto/EditarProduto'
 import { colecaoQueryOptions } from '@/features/operacao/produtos/hooks/useColecaoQuery'
 import { produtoQueryOptions } from '@/features/operacao/produtos/hooks/useProdutoQuery'
 

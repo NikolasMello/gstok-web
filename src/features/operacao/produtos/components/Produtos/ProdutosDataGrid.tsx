@@ -45,7 +45,7 @@ function criarColunas(
               noWrap
               title={row.nm_tipo ?? undefined}
             >
-              {row.nm_tipo ?? '-'} aaaa
+              {row.nm_tipo ?? '-'}
             </Typography>
           </Stack>
         </Stack>

@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography'
 import type { FornecedorResponseDto } from '@/service/fornecedor/ResponseDTOs'
 import type { Estacao } from '@/service/shared/enums'
 
-import { useFornecedoresQuery } from '../hooks/useFornecedoresQuery'
+import { useFornecedoresQuery } from '../../hooks/useFornecedoresQuery'
 
 export type ProdutosFiltro = {
   nmProduto?: string
