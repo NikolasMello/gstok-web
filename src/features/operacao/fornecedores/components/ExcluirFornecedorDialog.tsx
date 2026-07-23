@@ -17,7 +17,7 @@ type ExcluirFornecedorDialogProps = {
 }
 
 export default function ExcluirFornecedorDialog({ fornecedor, onClose }: ExcluirFornecedorDialogProps) {
-  const { notifySuccess, notifyError } = useNotification()
+  const { notifySuccess } = useNotification()
   const deleteFornecedorMutation = useDeleteFornecedorMutation()
 
   const nome = fornecedor?.nm_fantasia || fornecedor?.nm_empresa
@@ -29,9 +29,6 @@ export default function ExcluirFornecedorDialog({ fornecedor, onClose }: Excluir
       onSuccess: () => {
         notifySuccess('Fornecedor excluído com sucesso.')
         onClose()
-      },
-      onError: () => {
-        notifyError('Não foi possível excluir o fornecedor. Tente novamente.')
       },
     })
   }

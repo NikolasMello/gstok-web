@@ -51,7 +51,7 @@ function PerfilFormSkeleton() {
 export default function PerfilDialog({ open, onClose }: PerfilDialogProps) {
   const { data, isLoading } = useDadosPessoaisQuery(open)
   const atualizarDadosPessoaisMutation = useAtualizarDadosPessoaisMutation()
-  const { notifySuccess, notifyError } = useNotification()
+  const { notifySuccess } = useNotification()
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
@@ -76,9 +76,6 @@ export default function PerfilDialog({ open, onClose }: PerfilDialogProps) {
                 onSuccess: () => {
                   notifySuccess('Perfil atualizado com sucesso.')
                   onClose()
-                },
-                onError: () => {
-                  notifyError('Não foi possível atualizar o perfil. Tente novamente.')
                 },
               })
             }}

@@ -1,6 +1,5 @@
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 import AssignmentReturnRoundedIcon from '@mui/icons-material/AssignmentReturnRounded'
-import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 import Inventory2RoundedIcon from '@mui/icons-material/Inventory2Rounded'
 import LocalMallRoundedIcon from '@mui/icons-material/LocalMallRounded'
 import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded'
@@ -20,7 +19,6 @@ export const navGroups: NavGroup[] = [
     items: [
       { text: 'Estoque', Icon: WarehouseRoundedIcon, route: '/admin/estoque' },
       { text: 'Produtos', Icon: Inventory2RoundedIcon, route: '/admin/produtos' },
-      { text: 'Coleções', Icon: CategoryRoundedIcon, route: '/admin/colecoes' },
       { text: 'Fornecedores', Icon: LocalShippingRoundedIcon, route: '/admin/fornecedores' },
       { text: 'Compras', Icon: LocalMallRoundedIcon, route: '/admin/compras' },
     ],

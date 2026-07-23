@@ -17,7 +17,7 @@ type ExcluirProdutoDialogProps = {
 }
 
 export default function ExcluirProdutoDialog({ produto, onClose }: ExcluirProdutoDialogProps) {
-  const { notifySuccess, notifyError } = useNotification()
+  const { notifySuccess } = useNotification()
   const deleteProdutoMutation = useDeleteProdutoMutation()
 
   const handleConfirm = () => {
@@ -27,9 +27,6 @@ export default function ExcluirProdutoDialog({ produto, onClose }: ExcluirProdut
       onSuccess: () => {
         notifySuccess('Produto excluído com sucesso.')
         onClose()
-      },
-      onError: () => {
-        notifyError('Não foi possível excluir o produto. Tente novamente.')
       },
     })
   }

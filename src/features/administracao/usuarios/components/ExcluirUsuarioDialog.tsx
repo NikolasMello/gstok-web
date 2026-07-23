@@ -18,7 +18,7 @@ type ExcluirUsuarioDialogProps = {
 }
 
 export default function ExcluirUsuarioDialog({ usuario, onClose }: ExcluirUsuarioDialogProps) {
-  const { notifySuccess, notifyError } = useNotification()
+  const { notifySuccess } = useNotification()
   const deleteUsuarioMutation = useDeleteUsuarioMutation()
 
   const nome = usuario ? nomeCompleto(usuario) : ''
@@ -30,9 +30,6 @@ export default function ExcluirUsuarioDialog({ usuario, onClose }: ExcluirUsuari
       onSuccess: () => {
         notifySuccess('Usuário excluído com sucesso.')
         onClose()
-      },
-      onError: () => {
-        notifyError('Não foi possível excluir o usuário. Tente novamente.')
       },
     })
   }

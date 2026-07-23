@@ -11,7 +11,7 @@ const routeApi = getRouteApi('/admin/fornecedores/$id/editar')
 export default function EditarFornecedor() {
   const { id } = routeApi.useParams()
   const { data: fornecedor } = useFornecedorQuery(id)
-  const updateFornecedorMutation = useUpdateFornecedorMutation(id)
+  const { mutate, isPending } = useUpdateFornecedorMutation(id)
 
   if (!fornecedor) return null
 
@@ -27,9 +27,9 @@ export default function EditarFornecedor() {
           nm_fantasia: fornecedor.nm_fantasia ?? '',
           nm_marca: fornecedor.nm_marca ?? '',
         }}
-        isSubmitting={updateFornecedorMutation.isPending}
+        isSubmitting={isPending}
         onSubmit={(value) => {
-          updateFornecedorMutation.mutate({
+          mutate({
             cd_cnpj: value.cd_cnpj,
             nm_empresa: value.nm_empresa,
             nm_fantasia: value.nm_fantasia || undefined,

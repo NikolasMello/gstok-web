@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useNavigate } from '@tanstack/react-router'
+
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import Avatar from '@mui/material/Avatar'
@@ -16,6 +18,7 @@ import ExcluirProdutoDialog from './ExcluirProdutoDialog'
 const formatadorMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 
 function criarColunas(
+  onEditar: (produto: ProdutoResumoResponseDto) => void,
   onExcluir: (produto: ProdutoResumoResponseDto) => void,
 ): GridColDef<ProdutoResumoResponseDto>[] {
   return [
@@ -84,7 +87,12 @@ function criarColunas(
       headerName: 'Ações',
       width: 100,
       getActions: ({ row }) => [
-        <GridActionsCellItem key="editar" icon={<EditRoundedIcon />} label="Editar" disabled />,
+        <GridActionsCellItem
+          key="editar"
+          icon={<EditRoundedIcon />}
+          label="Editar"
+          onClick={() => onEditar(row)}
+        />,
         <GridActionsCellItem
           key="excluir"
           icon={<DeleteRoundedIcon />}
@@ -116,6 +124,7 @@ export default function ProdutosDataGrid({
   const [produtoParaExcluir, setProdutoParaExcluir] = useState<ProdutoResumoResponseDto | null>(
     null,
   )
+  const navigate = useNavigate()
 
   return (
     <>
@@ -126,7 +135,11 @@ export default function ProdutosDataGrid({
         rowHeight={96}
         getRowId={(row) => row.id_produto}
         rows={produtos}
-        columns={criarColunas(setProdutoParaExcluir)}
+        columns={criarColunas(
+          (produto) =>
+            void navigate({ to: '/admin/produtos/$id/editar', params: { id: produto.id_produto } }),
+          setProdutoParaExcluir,
+        )}
         loading={loading}
         rowCount={rowCount}
         paginationMode="server"

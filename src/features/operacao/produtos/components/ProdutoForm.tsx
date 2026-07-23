@@ -6,11 +6,11 @@ import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded'
 import AllInclusiveRoundedIcon from '@mui/icons-material/AllInclusiveRounded'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import Autocomplete from '@mui/material/Autocomplete'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import CardHeader from '@mui/material/CardHeader'
 import { blue, orange } from '@mui/material/colors'
 import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
@@ -36,9 +36,10 @@ import { useColecoesQuery } from '../hooks/useColecoesQuery'
 import { useFornecedoresQuery } from '../hooks/useFornecedoresQuery'
 import type { ProdutoFormValues } from '../schemas/produtoSchema'
 import { produtoSchema } from '../schemas/produtoSchema'
-import TipoProdutoAutocompleteField from './TipoProdutoAutocompleteField'
+import TipoProdutoAutocompleteField from './TipoProduto/TipoProdutoAutocompleteField'
 
 type ProdutoFormProps = {
+  mode: 'create' | 'edit'
   defaultValues: ProdutoFormValues
   isSubmitting?: boolean
   onSubmit: (value: ProdutoFormValues) => void
@@ -98,10 +99,13 @@ function ColecaoAutocompleteField({
 }
 
 export default function ProdutoForm({
+  mode,
   defaultValues,
   isSubmitting = false,
   onSubmit,
 }: ProdutoFormProps) {
+  const isEdicao = mode === 'edit'
+
   const form = useForm({
     defaultValues,
     validators: {
@@ -113,23 +117,18 @@ export default function ProdutoForm({
 
   const { data: fornecedores, isLoading: carregandoFornecedores } = useFornecedoresQuery(true)
 
-  return (
-    <Card
-      component="form"
-      onSubmit={(event) => {
-        event.preventDefault()
-        event.stopPropagation()
-        void handleSubmit()
-      }}
-      noValidate
-      variant="outlined"
-    >
-      <CardHeader title="Preencha os dados do produto" />
+  const conteudo = (
+    <>
       <CardContent>
         <Stack spacing={4}>
           <Stack spacing={3}>
             <Typography variant="h6">Identificação</Typography>
             <Grid container spacing={3}>
+              <Grid size={12}>
+                <Field name="tipo_produto_id">
+                  {(field) => <TipoProdutoAutocompleteField field={field} />}
+                </Field>
+              </Grid>
               <Grid size={{ xs: 12, sm: 4 }}>
                 <Field name="cd_ean">
                   {(field) => (
@@ -155,11 +154,6 @@ export default function ProdutoForm({
                       autoComplete="off"
                     />
                   )}
-                </Field>
-              </Grid>
-              <Grid size={12}>
-                <Field name="tipo_produto_id">
-                  {(field) => <TipoProdutoAutocompleteField field={field} />}
                 </Field>
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }}>
@@ -385,16 +379,19 @@ export default function ProdutoForm({
             </Field>
           </Stack>
 
-          <Divider />
-
-          <Stack spacing={3}>
-            <Typography variant="h6">Imagens</Typography>
-            <Field name="imagens">
-              {(field) => (
-                <CampoImagensComAcoes value={field.state.value} onChange={field.handleChange} />
-              )}
-            </Field>
-          </Stack>
+          {!isEdicao && (
+            <>
+              <Divider />
+              <Stack spacing={3}>
+                <Typography variant="h6">Imagens</Typography>
+                <Field name="imagens">
+                  {(field) => (
+                    <CampoImagensComAcoes value={field.state.value} onChange={field.handleChange} />
+                  )}
+                </Field>
+              </Stack>
+            </>
+          )}
         </Stack>
       </CardContent>
       <CardActions>
@@ -410,12 +407,43 @@ export default function ProdutoForm({
                 disabled={!canSubmit}
                 loading={isSubmitting}
               >
-                Criar produto
+                {isEdicao ? 'Salvar alterações' : 'Criar produto'}
               </Button>
             )}
           </Subscribe>
         </Stack>
       </CardActions>
+    </>
+  )
+
+  if (isEdicao) {
+    return (
+      <Box
+        component="form"
+        onSubmit={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          void handleSubmit()
+        }}
+        noValidate
+      >
+        {conteudo}
+      </Box>
+    )
+  }
+
+  return (
+    <Card
+      component="form"
+      onSubmit={(event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        void handleSubmit()
+      }}
+      noValidate
+      variant="outlined"
+    >
+      {conteudo}
     </Card>
   )
 }

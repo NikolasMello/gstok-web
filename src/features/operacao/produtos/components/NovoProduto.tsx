@@ -9,6 +9,7 @@ export default function NovoProduto() {
   return (
     <LayoutPagina title="Novo produto" maxWidth="md">
       <ProdutoForm
+        mode="create"
         defaultValues={{
           cd_ean: '',
           nm_produto: '',

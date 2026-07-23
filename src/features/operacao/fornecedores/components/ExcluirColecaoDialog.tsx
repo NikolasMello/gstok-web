@@ -26,7 +26,7 @@ export default function ExcluirColecaoDialog({
   colecao,
   onClose,
 }: ExcluirColecaoDialogProps) {
-  const { notifySuccess, notifyError } = useNotification()
+  const { notifySuccess } = useNotification()
   const deleteColecaoMutation = useDeleteColecaoMutation(fornecedorId)
 
   const handleConfirm = () => {
@@ -36,9 +36,6 @@ export default function ExcluirColecaoDialog({
       onSuccess: () => {
         notifySuccess('Coleção excluída com sucesso.')
         onClose()
-      },
-      onError: () => {
-        notifyError('Não foi possível excluir a coleção. Tente novamente.')
       },
     })
   }
